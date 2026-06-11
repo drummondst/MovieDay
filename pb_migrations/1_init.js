@@ -22,52 +22,48 @@ migrate((db) => {
     ],
   });
 
-  // ── nominations ──
-  const nominations = new Collection({
-    id: "nominations000001",
-    name: "nominations",
-    type: "base",
-    listRule: "",
-    viewRule: "",
-    createRule: "",
-    updateRule: "",
-    deleteRule: "",
-    schema: [
-      { name: "event_id",     type: "text",   required: true  },
-      { name: "tmdb_id",      type: "number", required: true  },
-      { name: "title",        type: "text",   required: true  },
-      { name: "year",         type: "text",   required: false },
-      { name: "poster",       type: "text",   required: false },
-      { name: "overview",     type: "text",   required: false },
-      { name: "genres",       type: "json",   required: false },
-      { name: "trailer_key",  type: "text",   required: false },
-      { name: "nominated_by", type: "text",   required: false },
-    ],
-  });
+  // // ── nominations ──
+  // const nominations = new Collection({
+  //   id: "nominations000001",
+  //   name: "nominations",
+  //   type: "base",
+  //   listRule: "",
+  //   viewRule: "",
+  //   createRule: "",
+  //   updateRule: "",
+  //   deleteRule: "",
+  //   schema: [
+  //     { name: "event_id",     type: "text",   required: true  },
+  //     { name: "tmdb_id",      type: "number", required: true  },
+  //     { name: "title",        type: "text",   required: true  },
+  //     { name: "year",         type: "text",   required: false },
+  //     { name: "poster",       type: "text",   required: false },
+  //     { name: "overview",     type: "text",   required: false },
+  //     { name: "genres",       type: "json",   required: false },
+  //     { name: "trailer_key",  type: "text",   required: false },
+  //     { name: "nominated_by", type: "text",   required: false },
+  //   ],
+  // });
 
-  // ── votes ──
-  const votes = new Collection({
-    id: "votes00000000001",
-    name: "votes",
-    type: "base",
-    listRule: "",
-    viewRule: "",
-    createRule: "",
-    updateRule: "",
-    deleteRule: "",
-    schema: [
-      { name: "nomination_id", type: "text",   required: true },
-      { name: "event_id",      type: "text",   required: true },
-      { name: "username",      type: "text",   required: true },
-      { name: "score",         type: "number", required: true },
-    ]
-  });
+  // // ── votes ──
+  // const votes = new Collection({
+  //   id: "votes00000000001",
+  //   name: "votes",
+  //   type: "base",
+  //   listRule: "",
+  //   viewRule: "",
+  //   createRule: "",
+  //   updateRule: "",
+  //   deleteRule: "",
+  //   schema: [
+  //     { name: "nomination_id", type: "text",   required: true },
+  //     { name: "event_id",      type: "text",   required: true },
+  //     { name: "username",      type: "text",   required: true },
+  //     { name: "score",         type: "number", required: true },
+  //   ]
+  // });
 
   db.save(events);
   // db.save(nominations);
   // db.save(votes);
-}, (db) => {
-  db.dropTable("votes");
-  db.dropTable("nominations");
-  db.dropTable("events");
 });
