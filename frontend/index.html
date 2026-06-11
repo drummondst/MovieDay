@@ -16,14 +16,12 @@
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;font-size:15px;}
 
-  /* NAV */
   nav{background:rgba(13,15,26,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:60px;}
   .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--gold);cursor:pointer;display:flex;align-items:center;gap:10px;}
   .nav-logo span{color:var(--text);}
   .nav-right{display:flex;align-items:center;gap:10px;}
   .nav-user{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);}
 
-  /* BUTTONS */
   .btn{padding:9px 20px;border-radius:6px;border:none;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .18s ease;display:inline-flex;align-items:center;gap:7px;}
   .btn-gold{background:var(--gold);color:#0D0F1A;}
   .btn-gold:hover{background:#f0d060;transform:translateY(-1px);}
@@ -36,12 +34,10 @@
   .btn-sm{padding:6px 14px;font-size:13px;}
   .btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important;}
 
-  /* VIEWS */
   .view{display:none;padding:32px 24px;max-width:1100px;margin:0 auto;}
   .view.active{display:block;}
 
-  /* AUTH WALL */
-  #view-auth{display:none;position:fixed;inset:0;background:var(--bg);z-index:300;align-items:center;justify-content:center;flex-direction:column;}
+  #view-auth{display:none;position:fixed;inset:0;background:var(--bg);z-index:300;align-items:center;justify-content:center;}
   #view-auth.active{display:flex;}
   .auth-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px;width:100%;max-width:400px;}
   .auth-logo{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:3px;color:var(--gold);text-align:center;margin-bottom:4px;}
@@ -53,19 +49,16 @@
   .auth-error{background:rgba(224,92,92,0.12);border:1px solid rgba(224,92,92,0.3);border-radius:6px;padding:10px 14px;font-size:13px;color:var(--danger);margin-bottom:16px;display:none;}
   .auth-error.show{display:block;}
 
-  /* HERO */
   .home-hero{text-align:center;padding:72px 20px 56px;}
   .home-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,8vw,92px);letter-spacing:4px;line-height:1;color:var(--gold);}
   .home-hero h1 span{color:var(--text);}
   .home-hero p{color:var(--muted);font-size:17px;margin:16px auto 36px;max-width:460px;line-height:1.6;}
   .home-hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
 
-  /* SECTIONS */
   .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
   .section-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;}
   .section-title span{color:var(--gold);}
 
-  /* EVENT CARDS */
   .events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
   .event-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;}
   .event-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--blue));opacity:0;transition:opacity .2s;}
@@ -81,12 +74,10 @@
   .badge-green{background:rgba(82,201,122,.15);color:var(--success);border:1px solid rgba(82,201,122,.3);}
   .badge-red{background:rgba(224,92,92,.15);color:var(--danger);border:1px solid rgba(224,92,92,.3);}
 
-  /* EMPTY */
   .empty-state{text-align:center;padding:60px 20px;color:var(--muted);}
   .empty-state .empty-icon{font-size:48px;margin-bottom:16px;}
   .empty-state h3{font-size:20px;color:var(--text);margin-bottom:8px;}
 
-  /* MODALS */
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);z-index:200;align-items:center;justify-content:center;padding:20px;}
   .modal-overlay.open{display:flex;}
   .modal{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;position:relative;}
@@ -95,7 +86,6 @@
   .modal-close{position:absolute;top:16px;right:16px;background:transparent;border:none;color:var(--muted);font-size:22px;cursor:pointer;padding:4px;transition:color .15s;}
   .modal-close:hover{color:var(--text);}
 
-  /* FORMS */
   .form-group{margin-bottom:18px;}
   .form-label{display:block;font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
   .form-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Inter',sans-serif;font-size:15px;padding:10px 14px;outline:none;transition:border-color .15s;}
@@ -104,7 +94,20 @@
   .form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:24px;}
   .form-hint{font-size:12px;color:var(--muted);margin-top:5px;}
 
-  /* EVENT DETAIL */
+  /* INVITE TAGS */
+  .invite-input-row{display:flex;gap:8px;}
+  .invite-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;min-height:32px;}
+  .invite-tag{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(107,127,212,.3);border-radius:20px;padding:4px 10px;font-size:13px;display:flex;align-items:center;gap:6px;}
+  .invite-tag button{background:none;border:none;color:var(--blue);cursor:pointer;font-size:14px;line-height:1;padding:0;}
+  .invite-tag button:hover{color:var(--danger);}
+
+  /* INVITE LIST in event detail */
+  .invite-list{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+  .invite-row{display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13px;}
+  .invite-row .email{color:var(--text);}
+  .invite-row .remove-invite{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;transition:color .15s;}
+  .invite-row .remove-invite:hover{color:var(--danger);}
+
   .event-header{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:28px;position:relative;overflow:hidden;}
   .event-header::after{content:'🎬';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:80px;opacity:.05;pointer-events:none;}
   .event-header-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:2px;line-height:1;margin-bottom:14px;}
@@ -112,7 +115,6 @@
   .event-header-meta span{display:flex;align-items:center;gap:6px;}
   .event-header-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;align-items:center;}
 
-  /* NOMINATIONS */
   .nominations-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:20px;}
   .movie-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .2s;position:relative;}
   .movie-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 12px 40px rgba(0,0,0,.4);}
@@ -124,7 +126,6 @@
   .vote-ring{position:absolute;top:8px;right:8px;background:rgba(13,15,26,.88);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;border:2px solid var(--gold);color:var(--gold);}
   .vote-ring.empty{border-color:var(--border);color:var(--muted);}
 
-  /* WINNERS */
   .winner-card{background:linear-gradient(135deg,rgba(232,197,71,.08),rgba(107,127,212,.06));border:2px solid var(--gold);border-radius:12px;padding:22px 26px;margin-bottom:20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
   .winner-label{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:var(--gold);}
   .winner-title{font-size:20px;font-weight:700;margin-top:3px;}
@@ -132,7 +133,6 @@
   .winner-score-val{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--gold);line-height:1;}
   .winner-score-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
 
-  /* MOVIE DETAIL */
   .movie-detail-grid{display:grid;grid-template-columns:180px 1fr;gap:24px;}
   @media(max-width:580px){.movie-detail-grid{grid-template-columns:1fr;}}
   .movie-detail-poster{width:100%;border-radius:10px;display:block;}
@@ -141,7 +141,6 @@
   .genre-pill{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(107,127,212,.3);border-radius:20px;padding:3px 10px;font-size:12px;font-weight:600;}
   .movie-overview{color:var(--muted);font-size:14px;line-height:1.7;margin:10px 0;}
 
-  /* VOTE */
   .vote-section{margin-top:18px;background:var(--surface);border-radius:10px;padding:18px;border:1px solid var(--border);}
   .vote-section-title{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:14px;}
   .vote-slider-row{display:flex;align-items:center;gap:14px;}
@@ -153,13 +152,11 @@
   .vote-stat-val{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold);}
   .vote-stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
 
-  /* TRAILER */
   .trailer-wrap{margin-top:20px;}
   .trailer-label{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:10px;}
   .trailer-container{border-radius:10px;overflow:hidden;aspect-ratio:16/9;background:#000;}
   .trailer-container iframe{width:100%;height:100%;border:none;display:block;}
 
-  /* SEARCH */
   .search-results{margin-top:12px;display:flex;flex-direction:column;gap:8px;max-height:340px;overflow-y:auto;}
   .search-result-item{display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .15s;}
   .search-result-item:hover{border-color:var(--gold);background:var(--card-hover);}
@@ -167,12 +164,10 @@
   .search-result-info .title{font-weight:600;font-size:14px;}
   .search-result-info .year{font-size:12px;color:var(--muted);}
 
-  /* COUNTDOWN */
   .countdown{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13px;color:var(--muted);display:inline-flex;align-items:center;gap:7px;}
   .countdown.urgent{border-color:var(--danger);color:var(--danger);}
   .countdown.ended{border-color:var(--success);color:var(--success);}
 
-  /* SETTINGS */
   .settings-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px;max-width:520px;}
   .settings-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;color:var(--gold);margin-bottom:6px;}
   .settings-subtitle{color:var(--muted);font-size:14px;margin-bottom:28px;}
@@ -180,17 +175,12 @@
   .key-status.set{color:var(--success);}
   .key-status.unset{color:var(--danger);}
 
-  /* AVATAR */
   .avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--blue));display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#0D0F1A;flex-shrink:0;}
-
-  /* LOADING */
   .loading{text-align:center;padding:20px;color:var(--muted);font-size:14px;}
   .spinner{display:inline-block;width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px;}
   @keyframes spin{to{transform:rotate(360deg);}}
-
   #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 22px;font-size:14px;font-weight:500;box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:999;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap;}
   #toast.show{opacity:1;}
-
   hr{border:none;border-top:1px solid var(--border);margin:22px 0;}
   ::-webkit-scrollbar{width:6px;height:6px;}
   ::-webkit-scrollbar-track{background:var(--bg);}
@@ -210,8 +200,6 @@
       <button class="auth-tab" onclick="switchAuthTab('register')">Register</button>
     </div>
     <div id="auth-error" class="auth-error"></div>
-
-    <!-- LOGIN -->
     <div id="auth-login">
       <div class="form-group">
         <label class="form-label">Email</label>
@@ -223,8 +211,6 @@
       </div>
       <button class="btn btn-gold" style="width:100%" id="btn-login" onclick="doLogin()">Sign In</button>
     </div>
-
-    <!-- REGISTER -->
     <div id="auth-register" style="display:none">
       <div class="form-group">
         <label class="form-label">Display Name</label>
@@ -255,7 +241,7 @@
       <div class="avatar" id="nav-avatar"></div>
       <span id="nav-username"></span>
     </div>
-    <button class="btn btn-outline btn-sm" onclick="showView('settings')" title="Settings">⚙️</button>
+    <button class="btn btn-outline btn-sm" onclick="showView('settings')">⚙️</button>
     <button class="btn btn-gold btn-sm" onclick="openCreateEvent()">+ Create Event</button>
     <button class="btn btn-ghost btn-sm" onclick="doLogout()">Sign out</button>
   </div>
@@ -265,13 +251,13 @@
 <div id="view-home" class="view active">
   <div class="home-hero">
     <h1>MOVIE NIGHT<br><span>MADE EASY</span></h1>
-    <p>Create an event, nominate films, vote on what to watch. Democracy, but for cinema.</p>
+    <p>Create an event, invite your crew, vote on what to watch.</p>
     <div class="home-hero-actions">
       <button class="btn btn-gold" onclick="openCreateEvent()">🎬 Create Event</button>
     </div>
   </div>
   <div class="section-header">
-    <div class="section-title">ALL <span>EVENTS</span></div>
+    <div class="section-title">YOUR <span>EVENTS</span></div>
     <button class="btn btn-outline btn-sm" onclick="loadEvents()">↻ Refresh</button>
   </div>
   <div id="events-grid" class="events-grid">
@@ -336,10 +322,37 @@
         <div class="form-hint">Winners announced after this</div>
       </div>
     </div>
+    <div class="form-group">
+      <label class="form-label">Invite People</label>
+      <div class="invite-input-row">
+        <input type="email" id="ev-invite-input" class="form-input" placeholder="Enter email and press Add">
+        <button class="btn btn-outline btn-sm" onclick="addInviteTag()">Add</button>
+      </div>
+      <div class="form-hint">They must have a ReelNight account with this email.</div>
+      <div id="ev-invite-tags" class="invite-tags"></div>
+    </div>
     <div class="form-actions">
       <button class="btn btn-ghost" onclick="closeModal('modal-create-event')">Cancel</button>
       <button class="btn btn-gold" id="btn-create-event" onclick="saveEvent()">Create Event</button>
     </div>
+  </div>
+</div>
+
+<!-- MANAGE INVITES MODAL -->
+<div id="modal-invites" class="modal-overlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-invites')">✕</button>
+    <div class="modal-title">MANAGE INVITES</div>
+    <div class="form-group">
+      <label class="form-label">Add Person</label>
+      <div class="invite-input-row">
+        <input type="email" id="new-invite-email" class="form-input" placeholder="Enter email address" onkeydown="if(event.key==='Enter')addInvite()">
+        <button class="btn btn-gold btn-sm" id="btn-add-invite" onclick="addInvite()">Add</button>
+      </div>
+      <div class="form-hint">They must have a ReelNight account with this email.</div>
+    </div>
+    <div class="form-label" style="margin-top:8px">Current Invites</div>
+    <div id="invite-list" class="invite-list"></div>
   </div>
 </div>
 
@@ -372,23 +385,21 @@ const TMDB_BASE = 'https://api.themoviedb.org/3';
 const TMDB_IMG  = 'https://image.tmdb.org/t/p/w500';
 const TMDB_SM   = 'https://image.tmdb.org/t/p/w92';
 
-// ── AUTH STATE ────────────────────────────────────────────────
-let authToken  = localStorage.getItem('rn_token')  || '';
-let authUser   = JSON.parse(localStorage.getItem('rn_user') || 'null');
-let tmdbKey    = '';
-let tmdbKeyRecordId = null;
-let currentEventId  = null;
-let currentNominations = [];
-let currentVotes       = [];
-let countdownInterval  = null;
+let authToken           = localStorage.getItem('rn_token') || '';
+let authUser            = JSON.parse(localStorage.getItem('rn_user') || 'null');
+let tmdbKey             = '';
+let tmdbKeyRecordId     = null;
+let currentEventId      = null;
+let currentNominations  = [];
+let currentVotes        = [];
+let currentInvites      = [];   // invites for current event
+let pendingInviteEmails = [];   // emails staged in create-event modal
+let countdownInterval   = null;
 
 // ── INIT ──────────────────────────────────────────────────────
 async function init() {
-  if (authToken && authUser) {
-    enterApp();
-  } else {
-    showAuthWall();
-  }
+  if (authToken && authUser) { enterApp(); }
+  else { showAuthWall(); }
 }
 
 function showAuthWall() {
@@ -400,192 +411,156 @@ function showAuthWall() {
 async function enterApp() {
   document.getElementById('view-auth').classList.remove('active');
   document.querySelector('nav').style.display = 'flex';
-  updateNavUser();
+  const name = authUser.name || authUser.email;
+  document.getElementById('nav-username').textContent = name;
+  document.getElementById('nav-avatar').textContent   = name.charAt(0).toUpperCase();
   await loadTmdbKey();
   showView('home');
 }
 
-function updateNavUser() {
-  if (!authUser) return;
-  const name = authUser.name || authUser.email;
-  document.getElementById('nav-username').textContent = name;
-  document.getElementById('nav-avatar').textContent = name.charAt(0).toUpperCase();
-}
-
-// ── AUTH TABS ─────────────────────────────────────────────────
+// ── AUTH ──────────────────────────────────────────────────────
 function switchAuthTab(tab) {
-  document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', (i===0&&tab==='login')||(i===1&&tab==='register')));
+  document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active',(i===0&&tab==='login')||(i===1&&tab==='register')));
   document.getElementById('auth-login').style.display    = tab==='login'    ? '' : 'none';
   document.getElementById('auth-register').style.display = tab==='register' ? '' : 'none';
   document.getElementById('auth-error').classList.remove('show');
 }
-
-function showAuthError(msg) {
-  const el = document.getElementById('auth-error');
-  el.textContent = msg;
-  el.classList.add('show');
-}
+function showAuthError(msg) { const el=document.getElementById('auth-error'); el.textContent=msg; el.classList.add('show'); }
 
 async function doLogin() {
-  const email    = document.getElementById('login-email').value.trim();
-  const password = document.getElementById('login-password').value;
-  if (!email || !password) { showAuthError('Enter your email and password.'); return; }
-  const btn = document.getElementById('btn-login');
-  btn.disabled = true; btn.textContent = 'Signing in…';
+  const email=document.getElementById('login-email').value.trim();
+  const password=document.getElementById('login-password').value;
+  if (!email||!password) { showAuthError('Enter your email and password.'); return; }
+  const btn=document.getElementById('btn-login');
+  btn.disabled=true; btn.textContent='Signing in…';
   try {
-    const r    = await fetch(`${PB}/collections/users/auth-with-password`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ identity: email, password }),
-    });
-    const data = await r.json();
-    if (!r.ok) throw new Error(data.message || 'Login failed');
-    authToken = data.token;
-    authUser  = data.record;
-    localStorage.setItem('rn_token', authToken);
-    localStorage.setItem('rn_user',  JSON.stringify(authUser));
+    const r=await fetch(`${PB}/collections/users/auth-with-password`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({identity:email,password})});
+    const data=await r.json();
+    if (!r.ok) throw new Error(data.message||'Login failed');
+    authToken=data.token; authUser=data.record;
+    localStorage.setItem('rn_token',authToken);
+    localStorage.setItem('rn_user',JSON.stringify(authUser));
     enterApp();
-  } catch(e) {
-    showAuthError(e.message);
-  } finally {
-    btn.disabled = false; btn.textContent = 'Sign In';
-  }
+  } catch(e) { showAuthError(e.message); }
+  finally { btn.disabled=false; btn.textContent='Sign In'; }
 }
 
 async function doRegister() {
-  const name  = document.getElementById('reg-name').value.trim();
-  const email = document.getElementById('reg-email').value.trim();
-  const pass  = document.getElementById('reg-password').value;
-  const pass2 = document.getElementById('reg-password2').value;
-  if (!name || !email || !pass) { showAuthError('Fill in all fields.'); return; }
-  if (pass !== pass2)           { showAuthError('Passwords do not match.'); return; }
-  if (pass.length < 8)          { showAuthError('Password must be at least 8 characters.'); return; }
-  const btn = document.getElementById('btn-register');
-  btn.disabled = true; btn.textContent = 'Creating account…';
+  const name=document.getElementById('reg-name').value.trim();
+  const email=document.getElementById('reg-email').value.trim();
+  const pass=document.getElementById('reg-password').value;
+  const pass2=document.getElementById('reg-password2').value;
+  if (!name||!email||!pass) { showAuthError('Fill in all fields.'); return; }
+  if (pass!==pass2)         { showAuthError('Passwords do not match.'); return; }
+  if (pass.length<8)        { showAuthError('Password must be at least 8 characters.'); return; }
+  const btn=document.getElementById('btn-register');
+  btn.disabled=true; btn.textContent='Creating account…';
   try {
-    // Create user
-    const r = await fetch(`${PB}/collections/users/records`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ name, email, password: pass, passwordConfirm: pass2 }),
-    });
-    const data = await r.json();
-    if (!r.ok) throw new Error(Object.values(data.data||{}).map(v=>v.message).join(', ') || data.message || 'Registration failed');
-    // Auto login
-    document.getElementById('login-email').value    = email;
-    document.getElementById('login-password').value = pass;
+    const r=await fetch(`${PB}/collections/users/records`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,password:pass,passwordConfirm:pass2})});
+    const data=await r.json();
+    if (!r.ok) throw new Error(Object.values(data.data||{}).map(v=>v.message).join(', ')||data.message||'Registration failed');
+    document.getElementById('login-email').value=email;
+    document.getElementById('login-password').value=pass;
     switchAuthTab('login');
     await doLogin();
-  } catch(e) {
-    showAuthError(e.message);
-  } finally {
-    btn.disabled = false; btn.textContent = 'Create Account';
-  }
+  } catch(e) { showAuthError(e.message); }
+  finally { btn.disabled=false; btn.textContent='Create Account'; }
 }
 
 function doLogout() {
-  authToken = ''; authUser = null;
-  localStorage.removeItem('rn_token');
-  localStorage.removeItem('rn_user');
+  authToken=''; authUser=null;
+  localStorage.removeItem('rn_token'); localStorage.removeItem('rn_user');
   showAuthWall();
 }
 
-// ── POCKETBASE HELPERS ────────────────────────────────────────
+// ── PB HELPERS ────────────────────────────────────────────────
 function authHeaders() {
-  return { 'Content-Type': 'application/json', ...(authToken ? { 'Authorization': authToken } : {}) };
+  return {'Content-Type':'application/json',...(authToken?{'Authorization':authToken}:{})};
 }
-
 async function pbGet(path) {
-  const url = path.replace(/([?&]filter=)([^&]+)/, (_,p,v) => p + encodeURIComponent(decodeURIComponent(v)));
-  const r   = await fetch(PB + url, { headers: authHeaders() });
-  if (r.status === 401) { doLogout(); throw new Error('Session expired — please sign in again.'); }
+  const url=path.replace(/([?&]filter=)([^&]+)/,(_,p,v)=>p+encodeURIComponent(decodeURIComponent(v)));
+  const r=await fetch(PB+url,{headers:authHeaders()});
+  if (r.status===401){doLogout();throw new Error('Session expired.');}
   if (!r.ok) throw new Error(await r.text());
   return r.json();
 }
-async function pbPost(path, body) {
-  const r = await fetch(PB + path, { method:'POST', headers: authHeaders(), body: JSON.stringify(body) });
-  if (r.status === 401) { doLogout(); throw new Error('Session expired.'); }
+async function pbPost(path,body) {
+  const r=await fetch(PB+path,{method:'POST',headers:authHeaders(),body:JSON.stringify(body)});
+  if (r.status===401){doLogout();throw new Error('Session expired.');}
   if (!r.ok) throw new Error(await r.text());
   return r.json();
 }
-async function pbPatch(path, body) {
-  const r = await fetch(PB + path, { method:'PATCH', headers: authHeaders(), body: JSON.stringify(body) });
-  if (r.status === 401) { doLogout(); throw new Error('Session expired.'); }
+async function pbPatch(path,body) {
+  const r=await fetch(PB+path,{method:'PATCH',headers:authHeaders(),body:JSON.stringify(body)});
+  if (r.status===401){doLogout();throw new Error('Session expired.');}
   if (!r.ok) throw new Error(await r.text());
   return r.json();
 }
 async function pbDelete(path) {
-  const r = await fetch(PB + path, { method:'DELETE', headers: authHeaders() });
-  if (r.status === 401) { doLogout(); throw new Error('Session expired.'); }
+  const r=await fetch(PB+path,{method:'DELETE',headers:authHeaders()});
+  if (r.status===401){doLogout();throw new Error('Session expired.');}
   if (!r.ok) throw new Error(await r.text());
 }
 
 // ── TMDB KEY ──────────────────────────────────────────────────
 async function loadTmdbKey() {
   try {
-    const data = await pbGet('/collections/settings/records?filter=(key="tmdb_key")&perPage=1');
-    const rec  = (data.items||[])[0];
-    if (rec) { tmdbKey = rec.value; tmdbKeyRecordId = rec.id; }
-  } catch(e) {}
+    const data=await pbGet('/collections/settings/records?filter=(key="tmdb_key")&perPage=1');
+    const rec=(data.items||[])[0];
+    if (rec){tmdbKey=rec.value;tmdbKeyRecordId=rec.id;}
+  } catch(e){}
 }
-
 function showSettingsView() {
-  document.getElementById('settings-tmdb-key').value = tmdbKey || '';
-  const status = document.getElementById('key-status');
-  if (tmdbKey) { status.className='key-status set'; status.textContent='✓ API key is set'; }
-  else         { status.className='key-status unset'; status.textContent='✕ No key set — movie search will not work'; }
+  document.getElementById('settings-tmdb-key').value=tmdbKey||'';
+  const s=document.getElementById('key-status');
+  if (tmdbKey){s.className='key-status set';s.textContent='✓ API key is set';}
+  else{s.className='key-status unset';s.textContent='✕ No key set — movie search will not work';}
 }
-
 async function saveTmdbKey() {
-  const val = document.getElementById('settings-tmdb-key').value.trim();
-  if (!val) { showToast('Enter a TMDB API key.'); return; }
-  const btn = document.getElementById('btn-save-key');
-  btn.disabled = true; btn.textContent = 'Saving…';
+  const val=document.getElementById('settings-tmdb-key').value.trim();
+  if (!val){showToast('Enter a TMDB API key.');return;}
+  const btn=document.getElementById('btn-save-key');
+  btn.disabled=true;btn.textContent='Saving…';
   try {
-    if (tmdbKeyRecordId) {
-      await pbPatch(`/collections/settings/records/${tmdbKeyRecordId}`, { value: val });
-    } else {
-      const rec = await pbPost('/collections/settings/records', { key: 'tmdb_key', value: val });
-      tmdbKeyRecordId = rec.id;
-    }
-    tmdbKey = val;
-    const status = document.getElementById('key-status');
-    status.className = 'key-status set'; status.textContent = '✓ API key is set';
+    if (tmdbKeyRecordId){await pbPatch(`/collections/settings/records/${tmdbKeyRecordId}`,{value:val});}
+    else{const rec=await pbPost('/collections/settings/records',{key:'tmdb_key',value:val});tmdbKeyRecordId=rec.id;}
+    tmdbKey=val;
+    const s=document.getElementById('key-status');s.className='key-status set';s.textContent='✓ API key is set';
     showToast('✓ TMDB key saved!');
-  } catch(e) { showToast('Error: ' + e.message); }
-  finally { btn.disabled = false; btn.textContent = 'Save Key'; }
+  } catch(e){showToast('Error: '+e.message);}
+  finally{btn.disabled=false;btn.textContent='Save Key';}
 }
 
 // ── VIEWS ─────────────────────────────────────────────────────
 function showView(name) {
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('view-' + name).classList.add('active');
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
   window.scrollTo(0,0);
-  if (name === 'home')     loadEvents();
-  if (name === 'settings') showSettingsView();
+  if (name==='home')     loadEvents();
+  if (name==='settings') showSettingsView();
 }
 
-// ── LOAD EVENTS ───────────────────────────────────────────────
+// ── EVENTS ────────────────────────────────────────────────────
 async function loadEvents() {
-  const grid = document.getElementById('events-grid');
-  grid.innerHTML = '<div class="loading"><span class="spinner"></span>Loading…</div>';
+  const grid=document.getElementById('events-grid');
+  grid.innerHTML='<div class="loading"><span class="spinner"></span>Loading…</div>';
   try {
-    const data = await pbGet('/collections/events/records?sort=-created&perPage=50');
-    renderEventsGrid(data.items || []);
+    const data=await pbGet('/collections/events/records?sort=-created&perPage=50');
+    renderEventsGrid(data.items||[]);
   } catch(e) {
-    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Error</h3><p>${escHtml(e.message)}</p></div>`;
+    grid.innerHTML=`<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Error</h3><p>${escHtml(e.message)}</p></div>`;
   }
 }
 
 function renderEventsGrid(events) {
-  const grid = document.getElementById('events-grid');
-  if (!events.length) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🍿</div><h3>No events yet</h3><p>Create the first movie night event.</p></div>`;
+  const grid=document.getElementById('events-grid');
+  if (!events.length){
+    grid.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">🍿</div><h3>No events yet</h3><p>Create an event and invite your crew.</p></div>`;
     return;
   }
-  grid.innerHTML = events.map(ev => {
-    const open  = isVotingOpen(ev);
-    const ended = hasVotingEnded(ev);
+  grid.innerHTML=events.map(ev=>{
+    const open=isVotingOpen(ev),ended=hasVotingEnded(ev);
+    const isOwner=ev.created_by_id===authUser?.id;
     return `<div class="event-card" onclick="openEvent('${ev.id}')">
       <div class="event-card-title">${escHtml(ev.name)}</div>
       <div class="event-meta">
@@ -595,10 +570,10 @@ function renderEventsGrid(events) {
         ${ev.vote_end?`<div class="event-meta-item">🗳 Voting closes ${formatDateTime(ev.vote_end)}</div>`:''}
       </div>
       <div class="event-badges">
-        ${open  ? '<span class="badge badge-green">Voting Open</span>'  : ''}
-        ${ended ? '<span class="badge badge-red">Voting Closed</span>'  : ''}
-        ${!ev.vote_end ? '<span class="badge badge-blue">Open-ended</span>' : ''}
-        ${ev.created_by ? `<span class="badge badge-gold">by ${escHtml(ev.created_by)}</span>` : ''}
+        ${open?'<span class="badge badge-green">Voting Open</span>':''}
+        ${ended?'<span class="badge badge-red">Voting Closed</span>':''}
+        ${!ev.vote_end?'<span class="badge badge-blue">Open-ended</span>':''}
+        ${isOwner?'<span class="badge badge-gold">Host</span>':'<span class="badge badge-blue">Invited</span>'}
       </div>
     </div>`;
   }).join('');
@@ -606,96 +581,131 @@ function renderEventsGrid(events) {
 
 // ── CREATE EVENT ──────────────────────────────────────────────
 function openCreateEvent() {
-  const t = new Date(); t.setDate(t.getDate()+1);
-  document.getElementById('ev-date').value     = t.toISOString().split('T')[0];
-  document.getElementById('ev-time').value     = '20:00';
-  document.getElementById('ev-name').value     = '';
-  document.getElementById('ev-location').value = '';
-  document.getElementById('ev-movies').value   = 1;
-  document.getElementById('ev-voteend').value  = '';
+  const t=new Date();t.setDate(t.getDate()+1);
+  document.getElementById('ev-date').value=t.toISOString().split('T')[0];
+  document.getElementById('ev-time').value='20:00';
+  document.getElementById('ev-name').value='';
+  document.getElementById('ev-location').value='';
+  document.getElementById('ev-movies').value=1;
+  document.getElementById('ev-voteend').value='';
+  document.getElementById('ev-invite-input').value='';
+  pendingInviteEmails=[];
+  renderInviteTags();
   openModal('modal-create-event');
 }
 
+function addInviteTag() {
+  const input=document.getElementById('ev-invite-input');
+  const email=input.value.trim().toLowerCase();
+  if (!email||!email.includes('@')){showToast('Enter a valid email.');return;}
+  if (pendingInviteEmails.includes(email)){showToast('Already added.');input.value='';return;}
+  if (email===authUser?.email){showToast("You're already the host.");input.value='';return;}
+  pendingInviteEmails.push(email);
+  input.value='';
+  renderInviteTags();
+}
+
+function removeInviteTag(email) {
+  pendingInviteEmails=pendingInviteEmails.filter(e=>e!==email);
+  renderInviteTags();
+}
+
+function renderInviteTags() {
+  document.getElementById('ev-invite-tags').innerHTML=pendingInviteEmails.map(e=>
+    `<div class="invite-tag">${escHtml(e)}<button onclick="removeInviteTag('${escHtml(e)}')" title="Remove">✕</button></div>`
+  ).join('');
+}
+
+// allow pressing Enter in the invite input field
+document.getElementById('ev-invite-input')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addInviteTag();}});
+
 async function saveEvent() {
-  const name      = document.getElementById('ev-name').value.trim();
-  const date      = document.getElementById('ev-date').value;
-  const time      = document.getElementById('ev-time').value;
-  const location  = document.getElementById('ev-location').value.trim();
-  const numMovies = parseInt(document.getElementById('ev-movies').value) || 1;
-  const voteEnd   = document.getElementById('ev-voteend').value || null;
-  if (!name||!date||!time||!location) { showToast('Fill in all required fields.'); return; }
-  const btn = document.getElementById('btn-create-event');
-  btn.disabled = true; btn.textContent = 'Creating…';
+  const name=document.getElementById('ev-name').value.trim();
+  const date=document.getElementById('ev-date').value;
+  const time=document.getElementById('ev-time').value;
+  const location=document.getElementById('ev-location').value.trim();
+  const numMovies=parseInt(document.getElementById('ev-movies').value)||1;
+  const voteEnd=document.getElementById('ev-voteend').value||null;
+  if (!name||!date||!time||!location){showToast('Fill in all required fields.');return;}
+  const btn=document.getElementById('btn-create-event');
+  btn.disabled=true;btn.textContent='Creating…';
   try {
-    const ev = await pbPost('/collections/events/records', {
-      name, date, time, location,
-      num_movies: numMovies,
-      vote_end: voteEnd,
-      created_by: authUser?.name || authUser?.email || '',
-      created_by_id: authUser?.id || '',
+    const ev=await pbPost('/collections/events/records',{
+      name,date,time,location,num_movies:numMovies,vote_end:voteEnd,
+      created_by:authUser?.name||authUser?.email||'',
+      created_by_id:authUser?.id||'',
     });
+    // Save invites
+    await Promise.all(pendingInviteEmails.map(email=>
+      pbPost('/collections/event_invites/records',{event_id:ev.id,user_email:email,invited_by:authUser?.id||''})
+    ));
     closeModal('modal-create-event');
     showToast('🎬 Event created!');
     openEvent(ev.id);
-  } catch(e) { showToast('Error: ' + e.message); }
-  finally { btn.disabled = false; btn.textContent = 'Create Event'; }
+  } catch(e){showToast('Error: '+e.message);}
+  finally{btn.disabled=false;btn.textContent='Create Event';}
 }
 
 // ── EVENT DETAIL ──────────────────────────────────────────────
 async function openEvent(id) {
-  currentEventId = id;
+  currentEventId=id;
   showView('event');
-  document.getElementById('event-detail-content').innerHTML = '<div class="loading"><span class="spinner"></span>Loading event…</div>';
+  document.getElementById('event-detail-content').innerHTML='<div class="loading"><span class="spinner"></span>Loading event…</div>';
   try {
-    const [ev, noms, votes] = await Promise.all([
+    const [ev,noms,votes,invites]=await Promise.all([
       pbGet(`/collections/events/records/${id}`),
-      pbGet(`/collections/nominations/records?filter=(event_id="${id}")&perPage=200&`),
+      pbGet(`/collections/nominations/records?filter=(event_id="${id}")&perPage=200&sort=created`),
       pbGet(`/collections/votes/records?filter=(event_id="${id}")&perPage=500`),
+      pbGet(`/collections/event_invites/records?filter=(event_id="${id}")&perPage=100`),
     ]);
-    currentNominations = noms.items  || [];
-    currentVotes       = votes.items || [];
+    currentNominations=noms.items||[];
+    currentVotes=votes.items||[];
+    currentInvites=invites.items||[];
     renderEventDetail(ev);
   } catch(e) {
-    document.getElementById('event-detail-content').innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Error</h3><p>${escHtml(e.message)}</p></div>`;
+    document.getElementById('event-detail-content').innerHTML=`<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Error</h3><p>${escHtml(e.message)}</p></div>`;
   }
 }
 
 function renderEventDetail(ev) {
   clearInterval(countdownInterval);
-  const open  = isVotingOpen(ev);
-  const ended = hasVotingEnded(ev);
-  const noms  = currentNominations;
-  const isOwner = ev.created_by_id === authUser?.id;
+  const open=isVotingOpen(ev),ended=hasVotingEnded(ev);
+  const isOwner=ev.created_by_id===authUser?.id;
+  const noms=currentNominations;
 
-  let winnersHtml = '';
-  if (ended && noms.length) {
-    const sorted = [...noms].sort((a,b) => getAvg(b.id)-getAvg(a.id));
-    winnersHtml = '<div style="margin-bottom:28px">' +
-      sorted.slice(0,ev.num_movies).map((n,i) => `
+  let winnersHtml='';
+  if (ended&&noms.length) {
+    const sorted=[...noms].sort((a,b)=>getAvg(b.id)-getAvg(a.id));
+    winnersHtml='<div style="margin-bottom:28px">'+
+      sorted.slice(0,ev.num_movies).map((n,i)=>`
         <div class="winner-card">
           <div style="font-size:36px">${['🏆','🥈','🥉'][i]||'🎬'}</div>
           <div><div class="winner-label">Winner #${i+1}</div><div class="winner-title">${escHtml(n.title)} ${n.year?'('+n.year+')':''}</div></div>
           <div class="winner-score"><div class="winner-score-val">${getAvg(n.id).toFixed(1)}</div><div class="winner-score-label">avg score</div></div>
-        </div>`).join('') + '</div>';
+        </div>`).join('')+'</div>';
   }
 
-  const nomCards = noms.length
-    ? `<div class="nominations-grid">${noms.map(n=>renderNomCard(n,open)).join('')}</div>`
-    : `<div class="empty-state"><div class="empty-icon">🎞</div><h3>No nominations yet</h3><p>Be the first to nominate a movie.</p>${open?`<button class="btn btn-gold" style="margin-top:16px" onclick="openNominateModal()">+ Nominate</button>`:''}</div>`;
+  const nomCards=noms.length
+    ?`<div class="nominations-grid">${noms.map(n=>renderNomCard(n,open)).join('')}</div>`
+    :`<div class="empty-state"><div class="empty-icon">🎞</div><h3>No nominations yet</h3><p>Be the first to nominate a movie.</p>${open?`<button class="btn btn-gold" style="margin-top:16px" onclick="openNominateModal()">+ Nominate</button>`:''}</div>`;
 
-  document.getElementById('event-detail-content').innerHTML = `
+  const inviteCount=currentInvites.length;
+
+  document.getElementById('event-detail-content').innerHTML=`
     <div class="event-header">
       <div class="event-header-title">${escHtml(ev.name)}</div>
       <div class="event-header-meta">
         <span>📅 ${formatDate(ev.date)} at ${formatTime(ev.time)}</span>
         <span>📍 ${escHtml(ev.location)}</span>
         <span>🎬 Top ${ev.num_movies} film${ev.num_movies>1?'s':''} selected</span>
+        <span>👥 ${inviteCount} invited</span>
       </div>
       <div class="event-header-actions">
-        ${open ? `<button class="btn btn-gold" onclick="openNominateModal()">+ Nominate a Movie</button>` : ''}
-        ${ev.vote_end ? renderCountdown(ev.vote_end) : ''}
+        ${open?`<button class="btn btn-gold" onclick="openNominateModal()">+ Nominate a Movie</button>`:''}
+        ${isOwner?`<button class="btn btn-outline btn-sm" onclick="openInvitesModal('${ev.id}')">👥 Manage Invites</button>`:''}
+        ${ev.vote_end?renderCountdown(ev.vote_end):''}
         <button class="btn btn-outline btn-sm" onclick="openEvent('${ev.id}')">↻ Refresh</button>
-        ${isOwner ? `<button class="btn btn-ghost btn-sm" onclick="deleteEvent('${ev.id}')">🗑 Delete</button>` : ''}
+        ${isOwner?`<button class="btn btn-ghost btn-sm" onclick="deleteEvent('${ev.id}')">🗑 Delete</button>`:''}
       </div>
     </div>
     ${winnersHtml}
@@ -705,15 +715,66 @@ function renderEventDetail(ev) {
     </div>
     ${nomCards}`;
 
-  if (ev.vote_end && !ended) startCountdown(ev.vote_end, ev);
+  if (ev.vote_end&&!ended) startCountdown(ev.vote_end,ev);
 }
 
-function renderNomCard(nom, votingOpen) {
-  const avg       = getAvg(nom.id);
-  const voteCount = getVoteCount(nom.id);
-  const myVote    = getMyVote(nom.id);
+// ── INVITES MODAL ─────────────────────────────────────────────
+async function openInvitesModal(eventId) {
+  document.getElementById('new-invite-email').value='';
+  renderInviteList();
+  openModal('modal-invites');
+}
+
+function renderInviteList() {
+  const list=document.getElementById('invite-list');
+  if (!currentInvites.length){
+    list.innerHTML=`<div style="color:var(--muted);font-size:13px;padding:12px 0">No invites yet.</div>`;
+    return;
+  }
+  list.innerHTML=currentInvites.map(inv=>
+    `<div class="invite-row">
+      <span class="email">${escHtml(inv.user_email)}</span>
+      <button class="remove-invite" onclick="removeInvite('${inv.id}')" title="Remove">✕</button>
+    </div>`
+  ).join('');
+}
+
+async function addInvite() {
+  const email=document.getElementById('new-invite-email').value.trim().toLowerCase();
+  if (!email||!email.includes('@')){showToast('Enter a valid email.');return;}
+  if (currentInvites.find(i=>i.user_email===email)){showToast('Already invited.');return;}
+  if (email===authUser?.email){showToast("You're already the host.");return;}
+  const btn=document.getElementById('btn-add-invite');
+  btn.disabled=true;btn.textContent='Adding…';
+  try {
+    const inv=await pbPost('/collections/event_invites/records',{
+      event_id:currentEventId,user_email:email,invited_by:authUser?.id||''
+    });
+    currentInvites.push(inv);
+    document.getElementById('new-invite-email').value='';
+    renderInviteList();
+    // Update the invite count in the event header
+    const countEl=document.querySelector('.event-header-meta span:nth-child(4)');
+    if (countEl) countEl.textContent=`👥 ${currentInvites.length} invited`;
+    showToast(`✓ ${email} invited`);
+  } catch(e){showToast('Error: '+e.message);}
+  finally{btn.disabled=false;btn.textContent='Add';}
+}
+
+async function removeInvite(inviteId) {
+  try {
+    await pbDelete(`/collections/event_invites/records/${inviteId}`);
+    currentInvites=currentInvites.filter(i=>i.id!==inviteId);
+    renderInviteList();
+    showToast('Invite removed.');
+  } catch(e){showToast('Error: '+e.message);}
+}
+
+// ── NOM CARD ──────────────────────────────────────────────────
+function renderNomCard(nom,votingOpen) {
+  const avg=getAvg(nom.id),voteCount=getVoteCount(nom.id),myVote=getMyVote(nom.id);
   return `<div class="movie-card" onclick="openMovieDetail('${nom.id}')">
-    ${nom.poster?`<img class="movie-poster" src="${TMDB_IMG}${nom.poster}" alt="${escHtml(nom.title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+    ${nom.poster?`<img class="movie-poster" src="${TMDB_IMG}${nom.poster}" alt="${escHtml(nom.title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` :''}
     <div class="movie-poster-placeholder" style="${nom.poster?'display:none':''}"><span style="font-size:32px">🎬</span><span style="text-align:center;padding:0 8px">${escHtml(nom.title)}</span></div>
     <div class="vote-ring ${voteCount===0?'empty':''}">${voteCount>0?avg.toFixed(1):(myVote!==null?myVote:'—')}</div>
     <div class="movie-card-body">
@@ -724,37 +785,25 @@ function renderNomCard(nom, votingOpen) {
 }
 
 // ── VOTE HELPERS ──────────────────────────────────────────────
-function getVotesFor(nomId)  { return currentVotes.filter(v=>v.nomination_id===nomId); }
-function getVoteCount(nomId) { return getVotesFor(nomId).length; }
-function getAvg(nomId) {
-  const vs = getVotesFor(nomId);
-  return vs.length ? vs.reduce((a,v)=>a+v.score,0)/vs.length : 0;
-}
-function getMyVote(nomId) {
-  const v = currentVotes.find(v=>v.nomination_id===nomId && v.user_id===authUser?.id);
-  return v ? v.score : null;
-}
+function getVotesFor(nomId){return currentVotes.filter(v=>v.nomination_id===nomId);}
+function getVoteCount(nomId){return getVotesFor(nomId).length;}
+function getAvg(nomId){const vs=getVotesFor(nomId);return vs.length?vs.reduce((a,v)=>a+v.score,0)/vs.length:0;}
+function getMyVote(nomId){const v=currentVotes.find(v=>v.nomination_id===nomId&&v.user_id===authUser?.id);return v?v.score:null;}
 
 // ── MOVIE DETAIL ──────────────────────────────────────────────
 async function openMovieDetail(nomId) {
-  const nom = currentNominations.find(n=>n.id===nomId);
+  const nom=currentNominations.find(n=>n.id===nomId);
   if (!nom) return;
-  try {
-    const vd = await pbGet(`/collections/votes/records?filter=(event_id="${currentEventId}")&perPage=500`);
-    currentVotes = vd.items || [];
-  } catch(e) {}
-  const ev         = await pbGet(`/collections/events/records/${currentEventId}`).catch(()=>null);
-  const votingOpen = ev ? isVotingOpen(ev) : false;
-  const myVote     = getMyVote(nomId);
-  const voteCount  = getVoteCount(nomId);
-  const avg        = getAvg(nomId);
-  const allVotes   = getVotesFor(nomId);
-  const genres     = Array.isArray(nom.genres) ? nom.genres : JSON.parse(nom.genres||'[]');
-  const sliderVal  = myVote !== null ? myVote : 5;
-  const pct        = ((sliderVal-1)/9*100).toFixed(0);
-  const isMyNom    = nom.nominated_by_id === authUser?.id;
+  try{const vd=await pbGet(`/collections/votes/records?filter=(event_id="${currentEventId}")&perPage=500`);currentVotes=vd.items||[];}catch(e){}
+  const ev=await pbGet(`/collections/events/records/${currentEventId}`).catch(()=>null);
+  const votingOpen=ev?isVotingOpen(ev):false;
+  const myVote=getMyVote(nomId),voteCount=getVoteCount(nomId),avg=getAvg(nomId),allVotes=getVotesFor(nomId);
+  const genres=Array.isArray(nom.genres)?nom.genres:JSON.parse(nom.genres||'[]');
+  const sliderVal=myVote!==null?myVote:5;
+  const pct=((sliderVal-1)/9*100).toFixed(0);
+  const isMyNom=nom.nominated_by_id===authUser?.id;
 
-  document.getElementById('movie-detail-content').innerHTML = `
+  document.getElementById('movie-detail-content').innerHTML=`
     <div class="movie-detail-grid">
       <div>${nom.poster?`<img class="movie-detail-poster" src="${TMDB_IMG}${nom.poster}" alt="${escHtml(nom.title)}">`:
         `<div style="aspect-ratio:2/3;background:var(--surface);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:48px">🎬</div>`}</div>
@@ -765,8 +814,8 @@ async function openMovieDetail(nomId) {
         <p class="movie-overview">${escHtml(nom.overview||'No description available.')}</p>
         <div class="vote-section">
           <div class="vote-section-title">Your Vote</div>
-          ${!votingOpen ? `<p style="color:var(--muted);font-size:13px">Voting is closed for this event.</p>`
-            : `<div class="vote-slider-row">
+          ${!votingOpen?`<p style="color:var(--muted);font-size:13px">Voting is closed for this event.</p>`
+            :`<div class="vote-slider-row">
                 <input type="range" class="vote-slider" id="vslider" min="1" max="10" value="${sliderVal}" style="--pct:${pct}%" oninput="onSlider(this)">
                 <div class="vote-value" id="vval">${sliderVal}</div>
                </div>
@@ -791,72 +840,60 @@ async function openMovieDetail(nomId) {
   openModal('modal-movie-detail');
 }
 
-function onSlider(el) {
-  el.style.setProperty('--pct',((el.value-1)/9*100).toFixed(0)+'%');
-  document.getElementById('vval').textContent = el.value;
-}
+function onSlider(el){el.style.setProperty('--pct',((el.value-1)/9*100).toFixed(0)+'%');document.getElementById('vval').textContent=el.value;}
 
 async function submitVote(nomId) {
-  const score    = parseInt(document.getElementById('vslider').value);
-  const existing = currentVotes.find(v=>v.nomination_id===nomId&&v.user_id===authUser?.id);
+  const score=parseInt(document.getElementById('vslider').value);
+  const existing=currentVotes.find(v=>v.nomination_id===nomId&&v.user_id===authUser?.id);
   try {
-    if (existing) {
-      const updated = await pbPatch(`/collections/votes/records/${existing.id}`, { score });
-      currentVotes  = currentVotes.map(v=>v.id===existing.id?updated:v);
-    } else {
-      const created = await pbPost('/collections/votes/records', {
-        nomination_id: nomId,
-        event_id: currentEventId,
-        user_id:  authUser?.id,
-        username: authUser?.name || authUser?.email,
-        score,
-      });
-      currentVotes.push(created);
-    }
+    if (existing){const u=await pbPatch(`/collections/votes/records/${existing.id}`,{score});currentVotes=currentVotes.map(v=>v.id===existing.id?u:v);}
+    else{const c=await pbPost('/collections/votes/records',{nomination_id:nomId,event_id:currentEventId,user_id:authUser?.id,username:authUser?.name||authUser?.email,score});currentVotes.push(c);}
     showToast(`✓ Voted ${score}/10!`);
     closeModal('modal-movie-detail');
-    const ev = await pbGet(`/collections/events/records/${currentEventId}`);
+    const ev=await pbGet(`/collections/events/records/${currentEventId}`);
     renderEventDetail(ev);
-  } catch(e) { showToast('Error: ' + e.message); }
+  } catch(e){showToast('Error: '+e.message);}
 }
 
 async function removeNomination(nomId) {
   if (!confirm('Remove this nomination?')) return;
   try {
     await pbDelete(`/collections/nominations/records/${nomId}`);
-    const toDelete = currentVotes.filter(v=>v.nomination_id===nomId);
+    const toDelete=currentVotes.filter(v=>v.nomination_id===nomId);
     await Promise.all(toDelete.map(v=>pbDelete(`/collections/votes/records/${v.id}`)));
-    currentNominations = currentNominations.filter(n=>n.id!==nomId);
-    currentVotes       = currentVotes.filter(v=>v.nomination_id!==nomId);
+    currentNominations=currentNominations.filter(n=>n.id!==nomId);
+    currentVotes=currentVotes.filter(v=>v.nomination_id!==nomId);
     closeModal('modal-movie-detail');
     showToast('Nomination removed.');
-    const ev = await pbGet(`/collections/events/records/${currentEventId}`);
+    const ev=await pbGet(`/collections/events/records/${currentEventId}`);
     renderEventDetail(ev);
-  } catch(e) { showToast('Error: ' + e.message); }
+  } catch(e){showToast('Error: '+e.message);}
 }
 
 async function deleteEvent(id) {
   if (!confirm('Delete this event and all its data?')) return;
   try {
-    const [noms,votes] = await Promise.all([
+    const [noms,votes,invites]=await Promise.all([
       pbGet(`/collections/nominations/records?filter=(event_id="${id}")&perPage=200`),
       pbGet(`/collections/votes/records?filter=(event_id="${id}")&perPage=500`),
+      pbGet(`/collections/event_invites/records?filter=(event_id="${id}")&perPage=100`),
     ]);
     await Promise.all([
       ...((votes.items||[]).map(v=>pbDelete(`/collections/votes/records/${v.id}`))),
       ...((noms.items||[]).map(n=>pbDelete(`/collections/nominations/records/${n.id}`))),
+      ...((invites.items||[]).map(i=>pbDelete(`/collections/event_invites/records/${i.id}`))),
     ]);
     await pbDelete(`/collections/events/records/${id}`);
     showToast('Event deleted.');
     showView('home');
-  } catch(e) { showToast('Error: ' + e.message); }
+  } catch(e){showToast('Error: '+e.message);}
 }
 
 // ── NOMINATE ──────────────────────────────────────────────────
 function openNominateModal() {
-  if (!tmdbKey) { showToast('No TMDB key set. Go to ⚙️ Settings first.'); return; }
-  document.getElementById('movie-search-input').value = '';
-  document.getElementById('search-results').innerHTML = '';
+  if (!tmdbKey){showToast('No TMDB key set. Go to ⚙️ Settings first.');return;}
+  document.getElementById('movie-search-input').value='';
+  document.getElementById('search-results').innerHTML='';
   openModal('modal-nominate');
   setTimeout(()=>document.getElementById('movie-search-input').focus(),80);
 }
@@ -865,42 +902,41 @@ let searchTimer=null;
 function debounceSearch(val) {
   clearTimeout(searchTimer);
   const sr=document.getElementById('search-results');
-  if (!val.trim()) { sr.innerHTML=''; return; }
+  if (!val.trim()){sr.innerHTML='';return;}
   sr.innerHTML='<div class="loading"><span class="spinner"></span>Searching…</div>';
   searchTimer=setTimeout(()=>searchMovies(val),400);
 }
 
 async function searchMovies(query) {
   try {
-    const r    = await fetch(`${TMDB_BASE}/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(query)}`);
-    const data = await r.json();
-    if (data.status_code===7) { document.getElementById('search-results').innerHTML=`<div style="color:var(--danger);padding:12px;font-size:13px">Invalid API key — update it in ⚙️ Settings.</div>`; return; }
+    const r=await fetch(`${TMDB_BASE}/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(query)}`);
+    const data=await r.json();
+    if (data.status_code===7){document.getElementById('search-results').innerHTML=`<div style="color:var(--danger);padding:12px;font-size:13px">Invalid API key — update in ⚙️ Settings.</div>`;return;}
     const results=(data.results||[]).slice(0,8);
-    if (!results.length) { document.getElementById('search-results').innerHTML='<div class="loading">No results.</div>'; return; }
+    if (!results.length){document.getElementById('search-results').innerHTML='<div class="loading">No results.</div>';return;}
     document.getElementById('search-results').innerHTML=results.map(m=>
       `<div class="search-result-item" onclick="nominateMovie(${m.id})">
         ${m.poster_path?`<img class="search-result-poster" src="${TMDB_SM}${m.poster_path}" alt="">`:
           `<div class="search-result-poster" style="display:flex;align-items:center;justify-content:center">🎬</div>`}
         <div class="search-result-info"><div class="title">${escHtml(m.title)}</div><div class="year">${m.release_date?m.release_date.split('-')[0]:'Unknown'}</div></div>
       </div>`).join('');
-  } catch(e) { document.getElementById('search-results').innerHTML='<div class="loading" style="color:var(--danger)">Search failed.</div>'; }
+  } catch(e){document.getElementById('search-results').innerHTML='<div class="loading" style="color:var(--danger)">Search failed.</div>';}
 }
 
 async function nominateMovie(tmdbId) {
-  if (currentNominations.find(n=>n.tmdb_id===tmdbId)) { showToast('Already nominated!'); closeModal('modal-nominate'); return; }
+  if (currentNominations.find(n=>n.tmdb_id===tmdbId)){showToast('Already nominated!');closeModal('modal-nominate');return;}
   document.getElementById('search-results').innerHTML='<div class="loading"><span class="spinner"></span>Fetching details…</div>';
   try {
     const [detailRes,videoRes]=await Promise.all([
       fetch(`${TMDB_BASE}/movie/${tmdbId}?api_key=${tmdbKey}`),
       fetch(`${TMDB_BASE}/movie/${tmdbId}/videos?api_key=${tmdbKey}`),
     ]);
-    const detail=await detailRes.json();
-    const videos=await videoRes.json();
+    const detail=await detailRes.json(),videos=await videoRes.json();
     const trailer=(videos.results||[]).find(v=>v.site==='YouTube'&&v.type==='Trailer')||(videos.results||[]).find(v=>v.site==='YouTube');
     const nom=await pbPost('/collections/nominations/records',{
-      event_id:currentEventId, tmdb_id:tmdbId, title:detail.title,
+      event_id:currentEventId,tmdb_id:tmdbId,title:detail.title,
       year:detail.release_date?detail.release_date.split('-')[0]:'',
-      poster:detail.poster_path||'', overview:detail.overview||'',
+      poster:detail.poster_path||'',overview:detail.overview||'',
       genres:(detail.genres||[]).map(g=>g.name),
       trailer_key:trailer?trailer.key:'',
       nominated_by:authUser?.name||authUser?.email||'',
@@ -911,7 +947,7 @@ async function nominateMovie(tmdbId) {
     showToast(`🎬 "${detail.title}" nominated!`);
     const ev=await pbGet(`/collections/events/records/${currentEventId}`);
     renderEventDetail(ev);
-  } catch(e) { document.getElementById('search-results').innerHTML=`<div class="loading" style="color:var(--danger)">Error: ${escHtml(e.message)}</div>`; }
+  } catch(e){document.getElementById('search-results').innerHTML=`<div class="loading" style="color:var(--danger)">Error: ${escHtml(e.message)}</div>`;}
 }
 
 // ── COUNTDOWN ─────────────────────────────────────────────────
@@ -925,9 +961,9 @@ function startCountdown(voteEnd,ev) {
   clearInterval(countdownInterval);
   countdownInterval=setInterval(()=>{
     const el=document.getElementById('countdown-el');
-    if (!el) { clearInterval(countdownInterval); return; }
+    if (!el){clearInterval(countdownInterval);return;}
     const diff=new Date(voteEnd)-Date.now();
-    if (diff<=0) { clearInterval(countdownInterval); openEvent(ev.id); return; }
+    if (diff<=0){clearInterval(countdownInterval);openEvent(ev.id);return;}
     const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000);
     el.textContent='⏱ '+(d>0?`${d}d ${h}h left`:h>0?`${h}h ${m}m left`:`${m}m left`);
     el.className='countdown'+(diff<3600000?' urgent':'');
@@ -935,21 +971,21 @@ function startCountdown(voteEnd,ev) {
 }
 
 // ── UTILS ─────────────────────────────────────────────────────
-function isVotingOpen(ev)  { return !ev.vote_end||new Date(ev.vote_end)>new Date(); }
-function hasVotingEnded(ev){ return !!ev.vote_end&&new Date(ev.vote_end)<=new Date(); }
-function formatDate(d) { if(!d)return''; const[y,m,day]=d.split('-'); return['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1]+' '+parseInt(day)+', '+y; }
-function formatTime(t) { if(!t)return''; const[h,m]=t.split(':'); return`${+h%12||12}:${m} ${+h<12?'AM':'PM'}`; }
-function formatDateTime(dt){ if(!dt)return''; return new Date(dt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }
-function escHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function isVotingOpen(ev){return !ev.vote_end||new Date(ev.vote_end)>new Date();}
+function hasVotingEnded(ev){return !!ev.vote_end&&new Date(ev.vote_end)<=new Date();}
+function formatDate(d){if(!d)return'';const[y,m,day]=d.split('-');return['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1]+' '+parseInt(day)+', '+y;}
+function formatTime(t){if(!t)return'';const[h,m]=t.split(':');return`${+h%12||12}:${m} ${+h<12?'AM':'PM'}`;}
+function formatDateTime(dt){if(!dt)return'';return new Date(dt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});}
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
 // ── MODALS ────────────────────────────────────────────────────
-function openModal(id)  { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(o=>{ o.addEventListener('click',e=>{ if(e.target===o)o.classList.remove('open'); }); });
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');});});
 
 // ── TOAST ─────────────────────────────────────────────────────
 let toastTimer;
-function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2800); }
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2800);}
 
 init();
 </script>
