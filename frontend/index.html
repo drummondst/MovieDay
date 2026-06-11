@@ -416,7 +416,7 @@ async function loadEvents() {
   const grid = document.getElementById('events-grid');
   grid.innerHTML = '<div class="loading"><span class="spinner"></span>Loading…</div>';
   try {
-    const data = await pbGet('/collections/events/records?sort=-created&perPage=50');
+    const data = await pbGet('/collections/events/records?sort=-date&perPage=50');
     renderEventsGrid(data.items || []);
   } catch(e) {
     grid.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Cannot reach server</h3><p>${escHtml(e.message)}</p></div>`;
@@ -500,7 +500,7 @@ async function openEvent(id) {
   try {
     const [ev, noms, votes] = await Promise.all([
       pbGet(`/collections/events/records/${id}`),
-      pbGet(`/collections/nominations/records?filter=event_id="${id}"&perPage=200&sort=created`),
+      pbGet(`/collections/nominations/records?filter=event_id="${id}"&perPage=200&sort=date`),
       pbGet(`/collections/votes/records?filter=event_id="${id}"&perPage=500`),
     ]);
     currentNominations = noms.items || [];
