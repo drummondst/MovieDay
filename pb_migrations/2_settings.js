@@ -1,4 +1,4 @@
-/// <reference path="../pb_data/types.d.ts" />
+
 migrate((db) => {
   const settings = new Collection({
     id: "settings000000001",
