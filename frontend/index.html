@@ -338,8 +338,7 @@ async function loadTmdbKey() {
   }
 }
 
-async function showSettingsView() {
-  await loadTmdbKey();
+function showSettingsView() {
   const input = document.getElementById('settings-tmdb-key');
   const status = document.getElementById('key-status');
   input.value = tmdbKey || '';
@@ -384,10 +383,10 @@ function showView(name) {
   window.scrollTo(0,0);
   if (name === 'home') loadEvents();
   if (name === 'settings') showSettingsView();
+
 }
 
-// ── NAV SETTINGS BUTTON ───────────────────────────────────────
-document.querySelector('button[onclick="showView(\'settings\')"]').onclick = () => showSettingsView();
+
 
 // ── POCKETBASE HELPERS ────────────────────────────────────────
 async function pbGet(path) {
