@@ -1,6 +1,6 @@
 services:
   reelnight_pb:
-    build: .
+    image: ghcr.io/muchobien/pocketbase:latest
     container_name: reelnight_pb
     restart: unless-stopped
     volumes:
