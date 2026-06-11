@@ -45,24 +45,6 @@ migrate((db) => {
     ],
   });
 
-  // ── votes ──
-  const votes = new Collection({
-    id: "votes00000000001",
-    name: "votes",
-    type: "base",
-    listRule: "",
-    viewRule: "",
-    createRule: "",
-    updateRule: "",
-    deleteRule: "",
-    schema: [
-      { name: "nomination_id", type: "text",   required: true },
-      { name: "event_id",      type: "text",   required: true },
-      { name: "username",      type: "text",   required: true },
-      { name: "score",         type: "number", required: true },
-    ]
-  });
-
   db.save(events);
   db.save(nominations);
   db.save(votes);
