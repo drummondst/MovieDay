@@ -66,6 +66,8 @@ migrate((db) => {
   db.save(events);
   db.save(nominations);
   db.save(votes);
+  
+  db.execute(`SELECT 1`);
 
   db.execute(`
   CREATE UNIQUE INDEX idx_vote_unique
