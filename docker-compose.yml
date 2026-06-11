@@ -15,11 +15,9 @@ services:
       - proxy
 
   reelnight_frontend:
-    image: nginx:alpine
+    build: .
     container_name: reelnight_frontend
     restart: unless-stopped
-    volumes:
-      - ./frontend:/usr/share/nginx/html:ro
     networks:
       - proxy
     depends_on:
