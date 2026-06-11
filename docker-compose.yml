@@ -4,7 +4,7 @@ services:
     container_name: reelnight_pb
     restart: unless-stopped
     volumes:
-      - ./pb_data:/pb/pb_data
+      - /mnt/share3/docker/appdata/reelknight_pb:/pb/pb_data
       - ./pb_migrations:/pb/pb_migrations
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8090/api/health"]
