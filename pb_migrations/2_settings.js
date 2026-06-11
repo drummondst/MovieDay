@@ -13,9 +13,6 @@ migrate((db) => {
       { name: "key",   type: "text", required: true },
       { name: "value", type: "text", required: true },
     ],
-    indexes: [
-      "CREATE UNIQUE INDEX idx_settings_key ON settings (key)"
-    ],
   });
   db.save(settings);
 }, (db) => {
