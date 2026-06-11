@@ -649,7 +649,7 @@ async function openEvent(id) {
   try {
     const [ev, noms, votes] = await Promise.all([
       pbGet(`/collections/events/records/${id}`),
-      pbGet(`/collections/nominations/records?filter=(event_id="${id}")&perPage=200&sort=created`),
+      pbGet(`/collections/nominations/records?filter=(event_id="${id}")&perPage=200&`),
       pbGet(`/collections/votes/records?filter=(event_id="${id}")&perPage=500`),
     ]);
     currentNominations = noms.items  || [];
