@@ -390,7 +390,9 @@ function showView(name) {
 
 // ── POCKETBASE HELPERS ────────────────────────────────────────
 async function pbGet(path) {
-  const r = await fetch(PB + path);
+  // Encode only the filter parameter value to avoid PocketBase 400 errors
+  const url = path.replace(/([?&]filter=)([^&]+)/, (_, prefix, val) => prefix + encodeURIComponent(decodeURIComponent(val)));
+  const r = await fetch(PB + url);
   if (!r.ok) throw new Error(await r.text());
   return r.json();
 }
