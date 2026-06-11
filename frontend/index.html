@@ -8,33 +8,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0D0F1A;
-    --surface: #13162A;
-    --card: #1A1D2E;
-    --card-hover: #1F2340;
-    --border: #2A2D45;
-    --gold: #E8C547;
-    --gold-dim: rgba(232,197,71,0.15);
-    --blue: #6B7FD4;
-    --blue-dim: rgba(107,127,212,0.15);
-    --text: #F0F0F0;
-    --muted: #8892B0;
-    --danger: #E05C5C;
-    --success: #52C97A;
+    --bg: #0D0F1A; --surface: #13162A; --card: #1A1D2E; --card-hover: #1F2340;
+    --border: #2A2D45; --gold: #E8C547; --gold-dim: rgba(232,197,71,0.15);
+    --blue: #6B7FD4; --blue-dim: rgba(107,127,212,0.15);
+    --text: #F0F0F0; --muted: #8892B0; --danger: #E05C5C; --success: #52C97A;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; font-size: 15px; }
 
-  /* NAV */
-  nav {
-    background: rgba(13,15,26,0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 100;
-    padding: 0 24px;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 60px;
-  }
+  nav { background: rgba(13,15,26,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 60px; }
   .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; color: var(--gold); cursor: pointer; display: flex; align-items: center; gap: 10px; }
   .nav-logo span { color: var(--text); }
   .nav-right { display: flex; align-items: center; gap: 12px; }
@@ -43,7 +25,6 @@
   .nav-username input:focus { border-color: var(--gold); }
   .nav-username label { color: var(--muted); font-size: 12px; white-space: nowrap; }
 
-  /* BUTTONS */
   .btn { padding: 9px 20px; border-radius: 6px; border: none; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.18s ease; display: inline-flex; align-items: center; gap: 7px; }
   .btn-gold { background: var(--gold); color: #0D0F1A; }
   .btn-gold:hover { background: #f0d060; transform: translateY(-1px); }
@@ -56,23 +37,19 @@
   .btn-sm { padding: 6px 14px; font-size: 13px; }
   .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; }
 
-  /* VIEWS */
   .view { display: none; padding: 32px 24px; max-width: 1100px; margin: 0 auto; }
   .view.active { display: block; }
 
-  /* HOME HERO */
   .home-hero { text-align: center; padding: 72px 20px 56px; }
   .home-hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 8vw, 92px); letter-spacing: 4px; line-height: 1; color: var(--gold); }
   .home-hero h1 span { color: var(--text); }
   .home-hero p { color: var(--muted); font-size: 17px; margin: 16px auto 36px; max-width: 460px; line-height: 1.6; }
   .home-hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-  /* SECTION */
   .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
   .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; }
   .section-title span { color: var(--gold); }
 
-  /* EVENT CARDS */
   .events-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
   .event-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; }
   .event-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--blue)); opacity: 0; transition: opacity 0.2s; }
@@ -88,12 +65,10 @@
   .badge-green { background: rgba(82,201,122,0.15); color: var(--success); border: 1px solid rgba(82,201,122,0.3); }
   .badge-red { background: rgba(224,92,92,0.15); color: var(--danger); border: 1px solid rgba(224,92,92,0.3); }
 
-  /* EMPTY STATE */
   .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
   .empty-state .empty-icon { font-size: 48px; margin-bottom: 16px; }
   .empty-state h3 { font-size: 20px; color: var(--text); margin-bottom: 8px; }
 
-  /* MODAL */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.open { display: flex; }
   .modal { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; position: relative; }
@@ -102,7 +77,6 @@
   .modal-close { position: absolute; top: 16px; right: 16px; background: transparent; border: none; color: var(--muted); font-size: 22px; cursor: pointer; line-height: 1; padding: 4px; transition: color 0.15s; }
   .modal-close:hover { color: var(--text); }
 
-  /* FORMS */
   .form-group { margin-bottom: 18px; }
   .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
   .form-input, .form-select { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; padding: 10px 14px; outline: none; transition: border-color 0.15s; }
@@ -111,7 +85,6 @@
   .form-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
   .form-hint { font-size: 12px; color: var(--muted); margin-top: 5px; }
 
-  /* EVENT DETAIL */
   .event-header { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 28px; position: relative; overflow: hidden; }
   .event-header::after { content: '🎬'; position: absolute; right: 24px; top: 50%; transform: translateY(-50%); font-size: 80px; opacity: 0.05; pointer-events: none; }
   .event-header-title { font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 2px; line-height: 1; margin-bottom: 14px; }
@@ -119,7 +92,6 @@
   .event-header-meta span { display: flex; align-items: center; gap: 6px; }
   .event-header-actions { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; align-items: center; }
 
-  /* NOMINATIONS GRID */
   .nominations-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 20px; }
   .movie-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.2s; position: relative; }
   .movie-card:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
@@ -128,12 +100,9 @@
   .movie-card-body { padding: 12px; }
   .movie-card-title { font-weight: 700; font-size: 14px; line-height: 1.3; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .movie-card-year { font-size: 12px; color: var(--muted); }
-
-  /* VOTE RING */
   .vote-ring { position: absolute; top: 8px; right: 8px; background: rgba(13,15,26,0.88); border-radius: 50%; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; border: 2px solid var(--gold); color: var(--gold); }
   .vote-ring.empty { border-color: var(--border); color: var(--muted); }
 
-  /* WINNER CARD */
   .winner-card { background: linear-gradient(135deg, rgba(232,197,71,0.08), rgba(107,127,212,0.06)); border: 2px solid var(--gold); border-radius: 12px; padding: 22px 26px; margin-bottom: 20px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
   .winner-label { font-family: 'Bebas Neue', sans-serif; font-size: 12px; letter-spacing: 2px; color: var(--gold); }
   .winner-title { font-size: 20px; font-weight: 700; margin-top: 3px; }
@@ -141,7 +110,6 @@
   .winner-score-val { font-family: 'Bebas Neue', sans-serif; font-size: 44px; color: var(--gold); line-height: 1; }
   .winner-score-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
 
-  /* MOVIE DETAIL */
   .movie-detail-grid { display: grid; grid-template-columns: 180px 1fr; gap: 24px; }
   @media (max-width: 580px) { .movie-detail-grid { grid-template-columns: 1fr; } }
   .movie-detail-poster { width: 100%; border-radius: 10px; display: block; }
@@ -150,7 +118,6 @@
   .genre-pill { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(107,127,212,0.3); border-radius: 20px; padding: 3px 10px; font-size: 12px; font-weight: 600; }
   .movie-overview { color: var(--muted); font-size: 14px; line-height: 1.7; margin: 10px 0; }
 
-  /* VOTE SECTION */
   .vote-section { margin-top: 18px; background: var(--surface); border-radius: 10px; padding: 18px; border: 1px solid var(--border); }
   .vote-section-title { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 14px; }
   .vote-slider-row { display: flex; align-items: center; gap: 14px; }
@@ -162,13 +129,11 @@
   .vote-stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--gold); }
   .vote-stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
 
-  /* TRAILER */
   .trailer-wrap { margin-top: 20px; }
   .trailer-label { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 10px; }
   .trailer-container { border-radius: 10px; overflow: hidden; aspect-ratio: 16/9; background: #000; }
   .trailer-container iframe { width: 100%; height: 100%; border: none; display: block; }
 
-  /* SEARCH */
   .search-results { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; max-height: 340px; overflow-y: auto; }
   .search-result-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.15s; }
   .search-result-item:hover { border-color: var(--gold); background: var(--card-hover); }
@@ -176,48 +141,36 @@
   .search-result-info .title { font-weight: 600; font-size: 14px; }
   .search-result-info .year { font-size: 12px; color: var(--muted); }
 
-  /* COUNTDOWN */
   .countdown { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px; font-size: 13px; color: var(--muted); display: inline-flex; align-items: center; gap: 7px; }
   .countdown.urgent { border-color: var(--danger); color: var(--danger); }
   .countdown.ended { border-color: var(--success); color: var(--success); }
 
-  /* LOADING */
   .loading { text-align: center; padding: 20px; color: var(--muted); font-size: 14px; }
   .spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 8px; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* TOAST */
+  /* SETTINGS PAGE */
+  .settings-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; max-width: 520px; }
+  .settings-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 2px; color: var(--gold); margin-bottom: 6px; }
+  .settings-subtitle { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+  .key-status { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; margin-top: 8px; }
+  .key-status.set { color: var(--success); }
+  .key-status.unset { color: var(--danger); }
+
   #toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 22px; font-size: 14px; font-weight: 500; box-shadow: 0 8px 32px rgba(0,0,0,0.5); z-index: 999; opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap; }
   #toast.show { opacity: 1; }
 
-  /* AVATAR */
   .avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--blue)); display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #0D0F1A; flex-shrink: 0; }
-
-  /* DIVIDER */
   hr { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
-
-  /* TMDB KEY */
-  .key-banner { background: var(--gold-dim); border: 1px solid rgba(232,197,71,0.3); border-radius: 8px; padding: 12px 16px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; font-size: 13px; flex-wrap: wrap; }
-  .key-banner a { color: var(--gold); }
-
-  /* SCROLLBAR */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
-
-  @media (max-width: 640px) {
-    .form-row { grid-template-columns: 1fr; }
-    .nominations-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-    .event-header-title { font-size: 30px; }
-    .nav-username label { display: none; }
-    .nav-username input { width: 130px; }
-  }
+  @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } .nominations-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } .event-header-title { font-size: 30px; } .nav-username label { display: none; } .nav-username input { width: 130px; } }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo" onclick="showView('home')">🎬 <span>REEL</span>NIGHT</div>
   <div class="nav-right">
@@ -227,10 +180,11 @@
       <div id="navAvatar" class="avatar" style="display:none"></div>
     </div>
     <button class="btn btn-gold btn-sm" onclick="openCreateEvent()">+ Create Event</button>
+    <button class="btn btn-outline btn-sm" onclick="showView('settings')" title="Settings">⚙️</button>
   </div>
 </nav>
 
-<!-- HOME VIEW -->
+<!-- HOME -->
 <div id="view-home" class="view active">
   <div class="home-hero">
     <h1>MOVIE NIGHT<br><span>MADE EASY</span></h1>
@@ -248,10 +202,26 @@
   </div>
 </div>
 
-<!-- EVENT DETAIL VIEW -->
+<!-- EVENT DETAIL -->
 <div id="view-event" class="view">
   <button class="btn btn-ghost btn-sm" onclick="showView('home')" style="margin-bottom:20px">← All Events</button>
   <div id="event-detail-content"></div>
+</div>
+
+<!-- SETTINGS -->
+<div id="view-settings" class="view">
+  <button class="btn btn-ghost btn-sm" onclick="showView('home')" style="margin-bottom:24px">← Back</button>
+  <div class="settings-card">
+    <div class="settings-title">SETTINGS</div>
+    <div class="settings-subtitle">Site-wide configuration. TMDB key is stored in the database and shared by all users.</div>
+    <div class="form-group">
+      <label class="form-label">TMDB API Key</label>
+      <input type="text" id="settings-tmdb-key" class="form-input" placeholder="Paste your TMDB API key…">
+      <div class="form-hint">Get a free key at <a href="https://www.themoviedb.org/settings/api" target="_blank" style="color:var(--gold)">themoviedb.org/settings/api</a></div>
+      <div id="key-status" class="key-status unset">✕ No key set — movie search will not work</div>
+    </div>
+    <button class="btn btn-gold" id="btn-save-key" onclick="saveTmdbKey()">Save Key</button>
+  </div>
 </div>
 
 <!-- CREATE EVENT MODAL -->
@@ -289,11 +259,6 @@
         <div class="form-hint">Winners announced after this</div>
       </div>
     </div>
-    <div class="form-group">
-      <label class="form-label">TMDB API Key</label>
-      <input type="text" id="ev-tmdb-key" class="form-input" placeholder="Paste your TMDB API key…">
-      <div class="form-hint">Get a free key at <a href="https://www.themoviedb.org/settings/api" target="_blank" style="color:var(--gold)">themoviedb.org</a> — stored in your browser only</div>
-    </div>
     <div class="form-actions">
       <button class="btn btn-ghost" onclick="closeModal('modal-create-event')">Cancel</button>
       <button class="btn btn-gold" id="btn-create-event" onclick="saveEvent()">Create Event</button>
@@ -325,34 +290,30 @@
 <div id="toast"></div>
 
 <script>
-// ─── CONFIG ───────────────────────────────────────────────────
-const PB = '/api';          // proxied through your Nginx
-const TMDB_BASE = 'https://api.themoviedb.org/3';
-const TMDB_IMG  = 'https://image.tmdb.org/t/p/w500';
-const TMDB_SM   = 'https://image.tmdb.org/t/p/w92';
+const PB         = '/api';
+const TMDB_BASE  = 'https://api.themoviedb.org/3';
+const TMDB_IMG   = 'https://image.tmdb.org/t/p/w500';
+const TMDB_SM    = 'https://image.tmdb.org/t/p/w92';
 
-// ─── STATE ────────────────────────────────────────────────────
-let currentEventId = null;
+let currentEventId   = null;
 let currentNominations = [];
-let currentVotes = [];       // all votes for current event
+let currentVotes     = [];
 let countdownInterval = null;
+let tmdbKey          = '';      // loaded from PocketBase on init
+let tmdbKeyRecordId  = null;    // PB record id so we can PATCH it
 
-// ─── INIT ─────────────────────────────────────────────────────
-function init() {
+// ── INIT ──────────────────────────────────────────────────────
+async function init() {
   const saved = localStorage.getItem('rn_username') || '';
   document.getElementById('usernameInput').value = saved;
   updateAvatar(saved);
-
-  // Restore TMDB key
-  const key = localStorage.getItem('tmdb_key') || '';
-  if (key) document.getElementById('ev-tmdb-key').value = key;
-
   document.getElementById('usernameInput').addEventListener('input', e => {
     const v = e.target.value.trim();
     localStorage.setItem('rn_username', v);
     updateAvatar(v);
   });
 
+  await loadTmdbKey();
   loadEvents();
 }
 
@@ -361,19 +322,74 @@ function updateAvatar(name) {
   if (name) { el.style.display = 'inline-flex'; el.textContent = name.charAt(0).toUpperCase(); }
   else { el.style.display = 'none'; }
 }
-
 function getUsername() { return document.getElementById('usernameInput').value.trim(); }
-function getTmdbKey()  { return localStorage.getItem('tmdb_key') || ''; }
 
-// ─── VIEWS ────────────────────────────────────────────────────
+// ── TMDB KEY (stored in PocketBase settings collection) ───────
+async function loadTmdbKey() {
+  try {
+    const data = await pbGet('/collections/settings/records?filter=key="tmdb_key"&perPage=1');
+    const record = (data.items || [])[0];
+    if (record) {
+      tmdbKey = record.value;
+      tmdbKeyRecordId = record.id;
+    }
+  } catch(e) {
+    // settings collection may not exist yet if migration hasn't run
+  }
+}
+
+async function showSettingsView() {
+  await loadTmdbKey();
+  const input = document.getElementById('settings-tmdb-key');
+  const status = document.getElementById('key-status');
+  input.value = tmdbKey || '';
+  if (tmdbKey) {
+    status.className = 'key-status set';
+    status.textContent = '✓ API key is set';
+  } else {
+    status.className = 'key-status unset';
+    status.textContent = '✕ No key set — movie search will not work';
+  }
+  showView('settings');
+}
+
+async function saveTmdbKey() {
+  const val = document.getElementById('settings-tmdb-key').value.trim();
+  if (!val) { showToast('Enter a TMDB API key.'); return; }
+  const btn = document.getElementById('btn-save-key');
+  btn.disabled = true; btn.textContent = 'Saving…';
+  try {
+    if (tmdbKeyRecordId) {
+      await pbPatch(`/collections/settings/records/${tmdbKeyRecordId}`, { value: val });
+    } else {
+      const rec = await pbPost('/collections/settings/records', { key: 'tmdb_key', value: val });
+      tmdbKeyRecordId = rec.id;
+    }
+    tmdbKey = val;
+    const status = document.getElementById('key-status');
+    status.className = 'key-status set';
+    status.textContent = '✓ API key is set';
+    showToast('✓ TMDB key saved!');
+  } catch(e) {
+    showToast('Error saving key: ' + e.message);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save Key';
+  }
+}
+
+// ── VIEWS ─────────────────────────────────────────────────────
 function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
   window.scrollTo(0,0);
   if (name === 'home') loadEvents();
+  if (name === 'settings') showSettingsView();
 }
 
-// ─── POCKETBASE HELPERS ───────────────────────────────────────
+// ── NAV SETTINGS BUTTON ───────────────────────────────────────
+document.querySelector('button[onclick="showView(\'settings\')"]').onclick = () => showSettingsView();
+
+// ── POCKETBASE HELPERS ────────────────────────────────────────
 async function pbGet(path) {
   const r = await fetch(PB + path);
   if (!r.ok) throw new Error(await r.text());
@@ -394,7 +410,7 @@ async function pbDelete(path) {
   if (!r.ok) throw new Error(await r.text());
 }
 
-// ─── LOAD EVENTS ──────────────────────────────────────────────
+// ── LOAD EVENTS ───────────────────────────────────────────────
 async function loadEvents() {
   const grid = document.getElementById('events-grid');
   grid.innerHTML = '<div class="loading"><span class="spinner"></span>Loading…</div>';
@@ -416,7 +432,7 @@ function renderEventsGrid(events) {
     return;
   }
   grid.innerHTML = events.map(ev => {
-    const open = isVotingOpen(ev);
+    const open  = isVotingOpen(ev);
     const ended = hasVotingEnded(ev);
     return `<div class="event-card" onclick="openEvent('${ev.id}')">
       <div class="event-card-title">${escHtml(ev.name)}</div>
@@ -427,8 +443,8 @@ function renderEventsGrid(events) {
         ${ev.vote_end ? `<div class="event-meta-item">🗳 Voting closes ${formatDateTime(ev.vote_end)}</div>` : ''}
       </div>
       <div class="event-badges">
-        ${open  ? '<span class="badge badge-green">Voting Open</span>'   : ''}
-        ${ended ? '<span class="badge badge-red">Voting Closed</span>'   : ''}
+        ${open  ? '<span class="badge badge-green">Voting Open</span>'  : ''}
+        ${ended ? '<span class="badge badge-red">Voting Closed</span>'  : ''}
         ${!ev.vote_end ? '<span class="badge badge-blue">Open-ended</span>' : ''}
         ${ev.created_by ? `<span class="badge badge-gold">by ${escHtml(ev.created_by)}</span>` : ''}
       </div>
@@ -436,7 +452,7 @@ function renderEventsGrid(events) {
   }).join('');
 }
 
-// ─── CREATE EVENT ─────────────────────────────────────────────
+// ── CREATE EVENT ──────────────────────────────────────────────
 function openCreateEvent() {
   const t = new Date(); t.setDate(t.getDate()+1);
   document.getElementById('ev-date').value = t.toISOString().split('T')[0];
@@ -445,27 +461,19 @@ function openCreateEvent() {
   document.getElementById('ev-location').value = '';
   document.getElementById('ev-movies').value = 1;
   document.getElementById('ev-voteend').value = '';
-  const saved = localStorage.getItem('tmdb_key') || '';
-  document.getElementById('ev-tmdb-key').value = saved;
   openModal('modal-create-event');
 }
 
 async function saveEvent() {
-  const name     = document.getElementById('ev-name').value.trim();
-  const date     = document.getElementById('ev-date').value;
-  const time     = document.getElementById('ev-time').value;
-  const location = document.getElementById('ev-location').value.trim();
-  const numMovies= parseInt(document.getElementById('ev-movies').value) || 1;
-  const voteEnd  = document.getElementById('ev-voteend').value || null;
-  const tmdbKey  = document.getElementById('ev-tmdb-key').value.trim();
-
+  const name      = document.getElementById('ev-name').value.trim();
+  const date      = document.getElementById('ev-date').value;
+  const time      = document.getElementById('ev-time').value;
+  const location  = document.getElementById('ev-location').value.trim();
+  const numMovies = parseInt(document.getElementById('ev-movies').value) || 1;
+  const voteEnd   = document.getElementById('ev-voteend').value || null;
   if (!name || !date || !time || !location) { showToast('Fill in all required fields.'); return; }
-
-  if (tmdbKey) localStorage.setItem('tmdb_key', tmdbKey);
-
   const btn = document.getElementById('btn-create-event');
   btn.disabled = true; btn.textContent = 'Creating…';
-
   try {
     const ev = await pbPost('/collections/events/records', {
       name, date, time, location,
@@ -483,7 +491,7 @@ async function saveEvent() {
   }
 }
 
-// ─── EVENT DETAIL ─────────────────────────────────────────────
+// ── EVENT DETAIL ──────────────────────────────────────────────
 async function openEvent(id) {
   currentEventId = id;
   showView('event');
@@ -504,37 +512,25 @@ async function openEvent(id) {
 
 function renderEventDetail(ev) {
   clearInterval(countdownInterval);
-  const open   = isVotingOpen(ev);
-  const ended  = hasVotingEnded(ev);
-  const noms   = currentNominations;
+  const open  = isVotingOpen(ev);
+  const ended = hasVotingEnded(ev);
+  const noms  = currentNominations;
 
-  // Winners section
   let winnersHtml = '';
   if (ended && noms.length) {
     const sorted = [...noms].sort((a,b) => getAvg(b.id) - getAvg(a.id));
     winnersHtml = '<div style="margin-bottom:28px">' +
       sorted.slice(0, ev.num_movies).map((n,i) => `
         <div class="winner-card">
-          <div style="font-size:36px">${i===0?'🏆':i===1?'🥈':'🥉'}</div>
-          <div>
-            <div class="winner-label">Winner #${i+1}</div>
-            <div class="winner-title">${escHtml(n.title)} ${n.year?'('+n.year+')':''}</div>
-          </div>
-          <div class="winner-score">
-            <div class="winner-score-val">${getAvg(n.id).toFixed(1)}</div>
-            <div class="winner-score-label">avg score</div>
-          </div>
+          <div style="font-size:36px">${['🏆','🥈','🥉'][i]||'🎬'}</div>
+          <div><div class="winner-label">Winner #${i+1}</div><div class="winner-title">${escHtml(n.title)} ${n.year?'('+n.year+')':''}</div></div>
+          <div class="winner-score"><div class="winner-score-val">${getAvg(n.id).toFixed(1)}</div><div class="winner-score-label">avg score</div></div>
         </div>`).join('') + '</div>';
   }
 
   const nomCards = noms.length
     ? `<div class="nominations-grid">${noms.map(n => renderNomCard(n, open)).join('')}</div>`
-    : `<div class="empty-state">
-        <div class="empty-icon">🎞</div>
-        <h3>No nominations yet</h3>
-        <p>Be the first to nominate a movie.</p>
-        ${open ? `<button class="btn btn-gold" style="margin-top:16px" onclick="openNominateModal()">+ Nominate</button>` : ''}
-       </div>`;
+    : `<div class="empty-state"><div class="empty-icon">🎞</div><h3>No nominations yet</h3><p>Be the first to nominate a movie.</p>${open?`<button class="btn btn-gold" style="margin-top:16px" onclick="openNominateModal()">+ Nominate</button>`:''}</div>`;
 
   document.getElementById('event-detail-content').innerHTML = `
     <div class="event-header">
@@ -551,32 +547,23 @@ function renderEventDetail(ev) {
         <button class="btn btn-ghost btn-sm" onclick="deleteEvent('${ev.id}')">🗑</button>
       </div>
     </div>
-
     ${winnersHtml}
-
     <div class="section-header">
       <div class="section-title">NOMINATIONS <span style="font-size:18px;color:var(--muted)">(${noms.length})</span></div>
       ${open && noms.length ? `<span style="color:var(--muted);font-size:13px">Tap a film to vote</span>` : ''}
     </div>
-    ${nomCards}
-  `;
+    ${nomCards}`;
 
   if (ev.vote_end && !ended) startCountdown(ev.vote_end, ev);
 }
 
 function renderNomCard(nom, votingOpen) {
-  const avg      = getAvg(nom.id);
-  const voteCount= getVoteCount(nom.id);
-  const myVote   = getMyVote(nom.id);
+  const avg       = getAvg(nom.id);
+  const voteCount = getVoteCount(nom.id);
+  const myVote    = getMyVote(nom.id);
   return `<div class="movie-card" onclick="openMovieDetail('${nom.id}')">
-    ${nom.poster
-      ? `<img class="movie-poster" src="${TMDB_IMG}${nom.poster}" alt="${escHtml(nom.title)}" loading="lazy"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-      : ''}
-    <div class="movie-poster-placeholder" style="${nom.poster?'display:none':''}">
-      <span style="font-size:32px">🎬</span>
-      <span style="text-align:center;padding:0 8px">${escHtml(nom.title)}</span>
-    </div>
+    ${nom.poster ? `<img class="movie-poster" src="${TMDB_IMG}${nom.poster}" alt="${escHtml(nom.title)}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
+    <div class="movie-poster-placeholder" style="${nom.poster?'display:none':''}"><span style="font-size:32px">🎬</span><span style="text-align:center;padding:0 8px">${escHtml(nom.title)}</span></div>
     <div class="vote-ring ${voteCount===0?'empty':''}">${voteCount>0 ? avg.toFixed(1) : (myVote!==null?myVote:'—')}</div>
     <div class="movie-card-body">
       <div class="movie-card-title">${escHtml(nom.title)}</div>
@@ -585,13 +572,12 @@ function renderNomCard(nom, votingOpen) {
   </div>`;
 }
 
-// ─── VOTE HELPERS (from in-memory currentVotes) ───────────────
-function getVotesFor(nomId) { return currentVotes.filter(v => v.nomination_id === nomId); }
+// ── VOTE HELPERS ──────────────────────────────────────────────
+function getVotesFor(nomId)  { return currentVotes.filter(v => v.nomination_id === nomId); }
 function getVoteCount(nomId) { return getVotesFor(nomId).length; }
 function getAvg(nomId) {
   const vs = getVotesFor(nomId);
-  if (!vs.length) return 0;
-  return vs.reduce((a,v) => a+v.score, 0) / vs.length;
+  return vs.length ? vs.reduce((a,v) => a+v.score, 0) / vs.length : 0;
 }
 function getMyVote(nomId) {
   const u = getUsername();
@@ -600,92 +586,63 @@ function getMyVote(nomId) {
   return v ? v.score : null;
 }
 
-// ─── MOVIE DETAIL MODAL ───────────────────────────────────────
+// ── MOVIE DETAIL ──────────────────────────────────────────────
 async function openMovieDetail(nomId) {
   const nom = currentNominations.find(n => n.id === nomId);
   if (!nom) return;
-
-  // Refresh votes for this event
   try {
     const vd = await pbGet(`/collections/votes/records?filter=event_id="${currentEventId}"&perPage=500`);
     currentVotes = vd.items || [];
   } catch(e) {}
-
   const ev = await pbGet(`/collections/events/records/${currentEventId}`).catch(()=>null);
   const votingOpen = ev ? isVotingOpen(ev) : false;
-
-  const myVote   = getMyVote(nomId);
-  const voteCount= getVoteCount(nomId);
-  const avg      = getAvg(nomId);
-  const allVotes = getVotesFor(nomId);
-  const genres   = Array.isArray(nom.genres) ? nom.genres : (typeof nom.genres === 'string' ? JSON.parse(nom.genres||'[]') : []);
-  const sliderVal= myVote !== null ? myVote : 5;
-  const pct      = ((sliderVal-1)/9*100).toFixed(0);
+  const myVote    = getMyVote(nomId);
+  const voteCount = getVoteCount(nomId);
+  const avg       = getAvg(nomId);
+  const allVotes  = getVotesFor(nomId);
+  const genres    = Array.isArray(nom.genres) ? nom.genres : JSON.parse(nom.genres||'[]');
+  const sliderVal = myVote !== null ? myVote : 5;
+  const pct       = ((sliderVal-1)/9*100).toFixed(0);
 
   document.getElementById('movie-detail-content').innerHTML = `
     <div class="movie-detail-grid">
-      <div>
-        ${nom.poster
-          ? `<img class="movie-detail-poster" src="${TMDB_IMG}${nom.poster}" alt="${escHtml(nom.title)}">`
-          : `<div style="aspect-ratio:2/3;background:var(--surface);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:48px">🎬</div>`}
-      </div>
+      <div>${nom.poster ? `<img class="movie-detail-poster" src="${TMDB_IMG}${nom.poster}" alt="${escHtml(nom.title)}">` : `<div style="aspect-ratio:2/3;background:var(--surface);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:48px">🎬</div>`}</div>
       <div>
         <div class="movie-detail-title">${escHtml(nom.title)}</div>
         <div style="color:var(--muted);font-size:13px">${nom.year||''} ${nom.nominated_by?'· Nominated by '+escHtml(nom.nominated_by):''}</div>
         <div class="movie-genres">${genres.map(g=>`<span class="genre-pill">${escHtml(g)}</span>`).join('')}</div>
         <p class="movie-overview">${escHtml(nom.overview||'No description available.')}</p>
-
         <div class="vote-section">
           <div class="vote-section-title">Your Vote</div>
-          ${!getUsername()
-            ? `<p style="color:var(--muted);font-size:13px">Set your name in the nav bar to vote.</p>`
-            : !votingOpen
-              ? `<p style="color:var(--muted);font-size:13px">Voting is closed for this event.</p>`
-              : `<div class="vote-slider-row">
-                   <input type="range" class="vote-slider" id="vslider" min="1" max="10" value="${sliderVal}"
-                     style="--pct:${pct}%" oninput="onSlider(this)">
-                   <div class="vote-value" id="vval">${sliderVal}</div>
-                 </div>
-                 <div style="margin-top:12px;display:flex;align-items:center;gap:12px">
-                   <button class="btn btn-gold btn-sm" onclick="submitVote('${nomId}')">
-                     ${myVote!==null ? '✓ Update Vote' : 'Submit Vote'}
-                   </button>
-                   ${myVote!==null ? `<span style="color:var(--success);font-size:13px">Your current vote: ${myVote}/10</span>` : ''}
-                 </div>`}
-          ${voteCount > 0 ? `
-            <div class="vote-stats">
-              <div class="vote-stat"><div class="vote-stat-val">${avg.toFixed(1)}</div><div class="vote-stat-label">Average</div></div>
-              <div class="vote-stat"><div class="vote-stat-val">${voteCount}</div><div class="vote-stat-label">Votes</div></div>
-              <div class="vote-stat"><div class="vote-stat-val">${Math.max(...allVotes.map(v=>v.score))}</div><div class="vote-stat-label">High</div></div>
-              <div class="vote-stat"><div class="vote-stat-val">${Math.min(...allVotes.map(v=>v.score))}</div><div class="vote-stat-label">Low</div></div>
-            </div>` : ''}
+          ${!getUsername() ? `<p style="color:var(--muted);font-size:13px">Set your name in the nav bar to vote.</p>`
+            : !votingOpen  ? `<p style="color:var(--muted);font-size:13px">Voting is closed for this event.</p>`
+            : `<div class="vote-slider-row">
+                <input type="range" class="vote-slider" id="vslider" min="1" max="10" value="${sliderVal}" style="--pct:${pct}%" oninput="onSlider(this)">
+                <div class="vote-value" id="vval">${sliderVal}</div>
+               </div>
+               <div style="margin-top:12px;display:flex;align-items:center;gap:12px">
+                 <button class="btn btn-gold btn-sm" onclick="submitVote('${nomId}')">${myVote!==null?'✓ Update Vote':'Submit Vote'}</button>
+                 ${myVote!==null?`<span style="color:var(--success);font-size:13px">Your current vote: ${myVote}/10</span>`:''}
+               </div>`}
+          ${voteCount>0 ? `<div class="vote-stats">
+            <div class="vote-stat"><div class="vote-stat-val">${avg.toFixed(1)}</div><div class="vote-stat-label">Average</div></div>
+            <div class="vote-stat"><div class="vote-stat-val">${voteCount}</div><div class="vote-stat-label">Votes</div></div>
+            <div class="vote-stat"><div class="vote-stat-val">${Math.max(...allVotes.map(v=>v.score))}</div><div class="vote-stat-label">High</div></div>
+            <div class="vote-stat"><div class="vote-stat-val">${Math.min(...allVotes.map(v=>v.score))}</div><div class="vote-stat-label">Low</div></div>
+          </div>` : ''}
         </div>
       </div>
     </div>
-
-    ${nom.trailer_key ? `
-      <hr>
-      <div class="trailer-wrap">
-        <div class="trailer-label">🎞 Trailer</div>
-        <div class="trailer-container">
-          <iframe src="https://www.youtube.com/embed/${nom.trailer_key}?rel=0" allowfullscreen allow="autoplay; encrypted-media"></iframe>
-        </div>
-      </div>` : ''}
-
+    ${nom.trailer_key ? `<hr><div class="trailer-wrap"><div class="trailer-label">🎞 Trailer</div><div class="trailer-container"><iframe src="https://www.youtube.com/embed/${nom.trailer_key}?rel=0" allowfullscreen allow="autoplay; encrypted-media"></iframe></div></div>` : ''}
     <div style="margin-top:16px;display:flex;justify-content:space-between;align-items:center">
       <span style="font-size:12px;color:var(--muted)">Movie data from The Movie Database</span>
-      ${nom.nominated_by === getUsername() && votingOpen
-        ? `<button class="btn btn-danger btn-sm" onclick="removeNomination('${nomId}')">Remove Nomination</button>`
-        : ''}
-    </div>
-  `;
-
+      ${nom.nominated_by===getUsername()&&votingOpen ? `<button class="btn btn-danger btn-sm" onclick="removeNomination('${nomId}')">Remove Nomination</button>` : ''}
+    </div>`;
   openModal('modal-movie-detail');
 }
 
 function onSlider(el) {
-  const pct = ((el.value-1)/9*100).toFixed(0);
-  el.style.setProperty('--pct', pct + '%');
+  el.style.setProperty('--pct', ((el.value-1)/9*100).toFixed(0)+'%');
   document.getElementById('vval').textContent = el.value;
 }
 
@@ -693,36 +650,25 @@ async function submitVote(nomId) {
   const username = getUsername();
   if (!username) { showToast('Enter your name to vote.'); return; }
   const score = parseInt(document.getElementById('vslider').value);
-
-  // Check if user already voted on this nomination
   const existing = currentVotes.find(v => v.nomination_id === nomId && v.username === username);
   try {
     if (existing) {
       const updated = await pbPatch(`/collections/votes/records/${existing.id}`, { score });
       currentVotes = currentVotes.map(v => v.id === existing.id ? updated : v);
     } else {
-      const created = await pbPost('/collections/votes/records', {
-        nomination_id: nomId,
-        event_id: currentEventId,
-        username,
-        score,
-      });
+      const created = await pbPost('/collections/votes/records', { nomination_id: nomId, event_id: currentEventId, username, score });
       currentVotes.push(created);
     }
     showToast(`✓ Voted ${score}/10!`);
     closeModal('modal-movie-detail');
-    // Re-render the nomination cards with updated data
     const ev = await pbGet(`/collections/events/records/${currentEventId}`);
     renderEventDetail(ev);
-  } catch(e) {
-    showToast('Error saving vote: ' + e.message);
-  }
+  } catch(e) { showToast('Error: ' + e.message); }
 }
 
 async function removeNomination(nomId) {
   if (!confirm('Remove this nomination?')) return;
   try {
-    // Delete the nomination and its votes
     await pbDelete(`/collections/nominations/records/${nomId}`);
     const toDelete = currentVotes.filter(v => v.nomination_id === nomId);
     await Promise.all(toDelete.map(v => pbDelete(`/collections/votes/records/${v.id}`)));
@@ -732,15 +678,12 @@ async function removeNomination(nomId) {
     showToast('Nomination removed.');
     const ev = await pbGet(`/collections/events/records/${currentEventId}`);
     renderEventDetail(ev);
-  } catch(e) {
-    showToast('Error: ' + e.message);
-  }
+  } catch(e) { showToast('Error: ' + e.message); }
 }
 
 async function deleteEvent(id) {
-  if (!confirm('Delete this event and all its nominations and votes?')) return;
+  if (!confirm('Delete this event and all its data?')) return;
   try {
-    // Delete votes, nominations, then event
     const [noms, votes] = await Promise.all([
       pbGet(`/collections/nominations/records?filter=event_id="${id}"&perPage=200`),
       pbGet(`/collections/votes/records?filter=event_id="${id}"&perPage=500`),
@@ -752,17 +695,14 @@ async function deleteEvent(id) {
     await pbDelete(`/collections/events/records/${id}`);
     showToast('Event deleted.');
     showView('home');
-  } catch(e) {
-    showToast('Error: ' + e.message);
-  }
+  } catch(e) { showToast('Error: ' + e.message); }
 }
 
-// ─── NOMINATE ─────────────────────────────────────────────────
+// ── NOMINATE ──────────────────────────────────────────────────
 function openNominateModal() {
-  if (!getTmdbKey()) {
-    const k = prompt('Enter your TMDB API key to search movies.\nGet one free at themoviedb.org/settings/api');
-    if (!k) return;
-    localStorage.setItem('tmdb_key', k.trim());
+  if (!tmdbKey) {
+    showToast('No TMDB key set. Go to ⚙️ Settings first.');
+    return;
   }
   document.getElementById('movie-search-input').value = '';
   document.getElementById('search-results').innerHTML = '';
@@ -780,26 +720,16 @@ function debounceSearch(val) {
 }
 
 async function searchMovies(query) {
-  const key = getTmdbKey();
-  if (!key) return;
   try {
-    const r    = await fetch(`${TMDB_BASE}/search/movie?api_key=${key}&query=${encodeURIComponent(query)}`);
+    const r    = await fetch(`${TMDB_BASE}/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(query)}`);
     const data = await r.json();
-    if (data.status_code === 7) {
-      document.getElementById('search-results').innerHTML = `<div style="color:var(--danger);padding:12px;font-size:13px">Invalid API key.</div>`;
-      return;
-    }
+    if (data.status_code === 7) { document.getElementById('search-results').innerHTML = `<div style="color:var(--danger);padding:12px;font-size:13px">Invalid API key — update it in ⚙️ Settings.</div>`; return; }
     const results = (data.results||[]).slice(0,8);
     if (!results.length) { document.getElementById('search-results').innerHTML = '<div class="loading">No results.</div>'; return; }
     document.getElementById('search-results').innerHTML = results.map(m =>
       `<div class="search-result-item" onclick="nominateMovie(${m.id})">
-        ${m.poster_path
-          ? `<img class="search-result-poster" src="${TMDB_SM}${m.poster_path}" alt="">`
-          : `<div class="search-result-poster" style="display:flex;align-items:center;justify-content:center">🎬</div>`}
-        <div class="search-result-info">
-          <div class="title">${escHtml(m.title)}</div>
-          <div class="year">${m.release_date?m.release_date.split('-')[0]:'Unknown'}</div>
-        </div>
+        ${m.poster_path ? `<img class="search-result-poster" src="${TMDB_SM}${m.poster_path}" alt="">` : `<div class="search-result-poster" style="display:flex;align-items:center;justify-content:center">🎬</div>`}
+        <div class="search-result-info"><div class="title">${escHtml(m.title)}</div><div class="year">${m.release_date?m.release_date.split('-')[0]:'Unknown'}</div></div>
       </div>`).join('');
   } catch(e) {
     document.getElementById('search-results').innerHTML = '<div class="loading" style="color:var(--danger)">Search failed.</div>';
@@ -807,36 +737,24 @@ async function searchMovies(query) {
 }
 
 async function nominateMovie(tmdbId) {
-  // Check for duplicate
-  if (currentNominations.find(n => n.tmdb_id === tmdbId)) {
-    showToast('Already nominated!');
-    closeModal('modal-nominate');
-    return;
-  }
+  if (currentNominations.find(n => n.tmdb_id === tmdbId)) { showToast('Already nominated!'); closeModal('modal-nominate'); return; }
   document.getElementById('search-results').innerHTML = '<div class="loading"><span class="spinner"></span>Fetching details…</div>';
-  const key = getTmdbKey();
   try {
     const [detailRes, videoRes] = await Promise.all([
-      fetch(`${TMDB_BASE}/movie/${tmdbId}?api_key=${key}`),
-      fetch(`${TMDB_BASE}/movie/${tmdbId}/videos?api_key=${key}`),
+      fetch(`${TMDB_BASE}/movie/${tmdbId}?api_key=${tmdbKey}`),
+      fetch(`${TMDB_BASE}/movie/${tmdbId}/videos?api_key=${tmdbKey}`),
     ]);
     const detail = await detailRes.json();
     const videos = await videoRes.json();
-    const trailer = (videos.results||[]).find(v => v.site==='YouTube' && v.type==='Trailer')
-                 || (videos.results||[]).find(v => v.site==='YouTube');
-
+    const trailer = (videos.results||[]).find(v=>v.site==='YouTube'&&v.type==='Trailer') || (videos.results||[]).find(v=>v.site==='YouTube');
     const nom = await pbPost('/collections/nominations/records', {
-      event_id:     currentEventId,
-      tmdb_id:      tmdbId,
-      title:        detail.title,
-      year:         detail.release_date ? detail.release_date.split('-')[0] : '',
-      poster:       detail.poster_path || '',
-      overview:     detail.overview || '',
-      genres:       (detail.genres||[]).map(g=>g.name),
-      trailer_key:  trailer ? trailer.key : '',
-      nominated_by: getUsername() || 'Anonymous',
+      event_id: currentEventId, tmdb_id: tmdbId, title: detail.title,
+      year: detail.release_date?detail.release_date.split('-')[0]:'',
+      poster: detail.poster_path||'', overview: detail.overview||'',
+      genres: (detail.genres||[]).map(g=>g.name),
+      trailer_key: trailer?trailer.key:'',
+      nominated_by: getUsername()||'Anonymous',
     });
-
     currentNominations.push(nom);
     closeModal('modal-nominate');
     showToast(`🎬 "${detail.title}" nominated!`);
@@ -847,13 +765,12 @@ async function nominateMovie(tmdbId) {
   }
 }
 
-// ─── COUNTDOWN ────────────────────────────────────────────────
+// ── COUNTDOWN ─────────────────────────────────────────────────
 function renderCountdown(voteEnd) {
   const diff = new Date(voteEnd) - Date.now();
   if (diff <= 0) return `<div class="countdown ended">✓ Voting ended ${formatDateTime(voteEnd)}</div>`;
   const d = Math.floor(diff/86400000), h = Math.floor((diff%86400000)/3600000), m = Math.floor((diff%3600000)/60000);
-  const label = d>0 ? `${d}d ${h}h left` : h>0 ? `${h}h ${m}m left` : `${m}m left`;
-  return `<div class="countdown${diff<3600000?' urgent':''}" id="countdown-el">⏱ ${label}</div>`;
+  return `<div class="countdown${diff<3600000?' urgent':''}" id="countdown-el">⏱ ${d>0?`${d}d ${h}h left`:h>0?`${h}h ${m}m left`:`${m}m left`}</div>`;
 }
 function startCountdown(voteEnd, ev) {
   clearInterval(countdownInterval);
@@ -862,49 +779,28 @@ function startCountdown(voteEnd, ev) {
     if (!el) { clearInterval(countdownInterval); return; }
     const diff = new Date(voteEnd) - Date.now();
     if (diff <= 0) { clearInterval(countdownInterval); openEvent(ev.id); return; }
-    const h = Math.floor((diff%86400000)/3600000), m = Math.floor((diff%3600000)/60000);
-    const d = Math.floor(diff/86400000);
-    el.textContent = '⏱ ' + (d>0 ? `${d}d ${h}h left` : h>0 ? `${h}h ${m}m left` : `${m}m left`);
-    el.className = 'countdown' + (diff<3600000 ? ' urgent' : '');
+    const d = Math.floor(diff/86400000), h = Math.floor((diff%86400000)/3600000), m = Math.floor((diff%3600000)/60000);
+    el.textContent = '⏱ ' + (d>0?`${d}d ${h}h left`:h>0?`${h}h ${m}m left`:`${m}m left`);
+    el.className = 'countdown' + (diff<3600000?' urgent':'');
   }, 30000);
 }
 
-// ─── UTILS ────────────────────────────────────────────────────
+// ── UTILS ─────────────────────────────────────────────────────
 function isVotingOpen(ev)  { return !ev.vote_end || new Date(ev.vote_end) > new Date(); }
 function hasVotingEnded(ev){ return !!ev.vote_end && new Date(ev.vote_end) <= new Date(); }
-function formatDate(d) {
-  if (!d) return '';
-  const [y,m,day] = d.split('-');
-  return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1]+' '+parseInt(day)+', '+y;
-}
-function formatTime(t) {
-  if (!t) return '';
-  const [h,m] = t.split(':');
-  return `${+h%12||12}:${m} ${+h<12?'AM':'PM'}`;
-}
-function formatDateTime(dt) {
-  if (!dt) return '';
-  return new Date(dt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
-}
-function escHtml(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+function formatDate(d) { if (!d) return ''; const [y,m,day]=d.split('-'); return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m-1]+' '+parseInt(day)+', '+y; }
+function formatTime(t) { if (!t) return ''; const [h,m]=t.split(':'); return `${+h%12||12}:${m} ${+h<12?'AM':'PM'}`; }
+function formatDateTime(dt) { if (!dt) return ''; return new Date(dt).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}); }
+function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-// ─── MODALS ───────────────────────────────────────────────────
+// ── MODALS ────────────────────────────────────────────────────
 function openModal(id)  { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', e => { if (e.target===o) o.classList.remove('open'); });
-});
+document.querySelectorAll('.modal-overlay').forEach(o => { o.addEventListener('click', e => { if(e.target===o) o.classList.remove('open'); }); });
 
-// ─── TOAST ────────────────────────────────────────────────────
+// ── TOAST ─────────────────────────────────────────────────────
 let toastTimer;
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
-}
+function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2800); }
 
 init();
 </script>
