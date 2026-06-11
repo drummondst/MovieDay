@@ -1,0 +1,32 @@
+services:
+  reelnight_pb:
+    image: ghcr.io/muchobien/pocketbase:latest
+    container_name: reelnight_pb
+    restart: unless-stopped
+    volumes:
+      - ./pb_data:/pb/pb_data
+      - ./pb_migrations:/pb/pb_migrations
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8090/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - proxy
+
+  reelnight_frontend:
+    image: nginx:alpine
+    container_name: reelnight_frontend
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    networks:
+      - proxy
+    depends_on:
+      reelnight_pb:
+        condition: service_healthy
+
+networks:
+  proxy:
+    external: true
+    name: YOUR_NGINX_NETWORK_NAME   # ← change this to your existing network name
