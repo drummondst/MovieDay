@@ -11,8 +11,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:
-      - proxy
+
 
   reelnight_frontend:
     image: nginx:alpine
@@ -20,13 +19,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./frontend:/usr/share/nginx/html:ro
-    networks:
-      - proxy
     depends_on:
       reelnight_pb:
         condition: service_healthy
 
-networks:
-  proxy:
-    external: true
-    name: bridge
