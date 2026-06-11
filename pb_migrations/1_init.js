@@ -60,15 +60,17 @@ migrate((db) => {
       { name: "event_id",      type: "text",   required: true },
       { name: "username",      type: "text",   required: true },
       { name: "score",         type: "number", required: true },
-    ],
-    indexes: [
-      "CREATE UNIQUE INDEX idx_vote_unique ON votes (nomination_id, username)"
-    ],
+    ]
   });
 
   db.save(events);
   db.save(nominations);
   db.save(votes);
+
+  db.execute(`
+  CREATE UNIQUE INDEX idx_vote_unique
+  ON votes (nomination_id, username)
+`);
 
 }, (db) => {
   db.dropTable("votes");
