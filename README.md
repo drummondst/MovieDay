@@ -1,4 +1,4 @@
-# ReelNight — Setup Guide
+# ReelKnight — Setup Guide
 
 ## What's in this package
 
