@@ -47,10 +47,7 @@ migrate((db) => {
 
   db.save(events);
   db.save(nominations);
-  db.save(votes);
-
 }, (db) => {
-  db.dropTable("votes");
   db.dropTable("nominations");
   db.dropTable("events");
 });
