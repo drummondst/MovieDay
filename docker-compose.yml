@@ -19,9 +19,9 @@ services:
     restart: unless-stopped
     networks:
       - proxy
-    depends_on:
-      reelnight_pb:
-        condition: service_healthy
+    # depends_on:
+    #   reelnight_pb:
+    #     condition: service_healthy
 
 networks:
   proxy:
