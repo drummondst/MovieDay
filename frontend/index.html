@@ -327,7 +327,7 @@ function getUsername() { return document.getElementById('usernameInput').value.t
 // ── TMDB KEY (stored in PocketBase settings collection) ───────
 async function loadTmdbKey() {
   try {
-    const data = await pbGet('/collections/settings/records?filter=key="tmdb_key"&perPage=1');
+    const data = await pbGet('/collections/settings/records?filter=(key="tmdb_key")&perPage=1');
     const record = (data.items || [])[0];
     if (record) {
       tmdbKey = record.value;
@@ -500,8 +500,8 @@ async function openEvent(id) {
   try {
     const [ev, noms, votes] = await Promise.all([
       pbGet(`/collections/events/records/${id}`),
-      pbGet(`/collections/nominations/records?filter=event_id="${id}"&perPage=200&sort=date`),
-      pbGet(`/collections/votes/records?filter=event_id="${id}"&perPage=500`),
+      pbGet(`/collections/nominations/records?filter=(event_id="${id}")&perPage=200`),
+      pbGet(`/collections/votes/records?filter=(event_id="${id}")&perPage=500`),
     ]);
     currentNominations = noms.items || [];
     currentVotes       = votes.items || [];
@@ -592,7 +592,7 @@ async function openMovieDetail(nomId) {
   const nom = currentNominations.find(n => n.id === nomId);
   if (!nom) return;
   try {
-    const vd = await pbGet(`/collections/votes/records?filter=event_id="${currentEventId}"&perPage=500`);
+    const vd = await pbGet(`/collections/votes/records?filter=(event_id="${currentEventId}")&perPage=500`);
     currentVotes = vd.items || [];
   } catch(e) {}
   const ev = await pbGet(`/collections/events/records/${currentEventId}`).catch(()=>null);
@@ -686,8 +686,8 @@ async function deleteEvent(id) {
   if (!confirm('Delete this event and all its data?')) return;
   try {
     const [noms, votes] = await Promise.all([
-      pbGet(`/collections/nominations/records?filter=event_id="${id}"&perPage=200`),
-      pbGet(`/collections/votes/records?filter=event_id="${id}"&perPage=500`),
+      pbGet(`/collections/nominations/records?filter=(event_id="${id}")&perPage=200`),
+      pbGet(`/collections/votes/records?filter=(event_id="${id}")&perPage=500`),
     ]);
     await Promise.all([
       ...((votes.items||[]).map(v => pbDelete(`/collections/votes/records/${v.id}`))),
