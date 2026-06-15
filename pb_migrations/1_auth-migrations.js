@@ -1,34 +1,58 @@
 /// <reference path="../pb_data/types.d.ts" />
 migrate((db) => {
 
-  // ── events ──
-  const events = db.findCollectionByNameOrId("events");
-  events.listRule   = "@request.auth.id != ''";
-  events.viewRule   = "@request.auth.id != ''";
-  events.createRule = "@request.auth.id != ''";
-  events.updateRule = "@request.auth.id != '' && created_by = @request.auth.name";
-  events.deleteRule = "@request.auth.id != '' && created_by = @request.auth.name";
-  db.save(events);
-
-  // ── nominations ──
+  // ── nominations: add nominated_by_id field FIRST ──
   const nominations = db.findCollectionByNameOrId("nominations");
-  nominations.listRule   = "@request.auth.id != ''";
-  nominations.viewRule   = "@request.auth.id != ''";
-  nominations.createRule = "@request.auth.id != ''";
-  nominations.updateRule = "@request.auth.id != '' && nominated_by_id = @request.auth.id";
-  nominations.deleteRule = "@request.auth.id != '' && nominated_by_id = @request.auth.id";
+  nominations.fields.add(new Field({
+    name: "nominated_by_id",
+    type: "text",
+    required: false,
+  }));
   db.save(nominations);
 
-  // ── votes ──
+  // ── votes: add user_id field FIRST ──
   const votes = db.findCollectionByNameOrId("votes");
-  votes.listRule   = "@request.auth.id != ''";
-  votes.viewRule   = "@request.auth.id != ''";
-  votes.createRule = "@request.auth.id != ''";
-  votes.updateRule = "@request.auth.id != '' && user_id = @request.auth.id";
-  votes.deleteRule = "@request.auth.id != '' && user_id = @request.auth.id";
+  votes.fields.add(new Field({
+    name: "user_id",
+    type: "text",
+    required: false,
+  }));
   db.save(votes);
 
-  // ── settings ──
+  // ── events: add created_by_id field FIRST ──
+  const events = db.findCollectionByNameOrId("events");
+  events.fields.add(new Field({
+    name: "created_by_id",
+    type: "text",
+    required: false,
+  }));
+  db.save(events);
+
+  // ── NOW set rules (fields exist) ──
+  const events2 = db.findCollectionByNameOrId("events");
+  events2.listRule   = "@request.auth.id != ''";
+  events2.viewRule   = "@request.auth.id != ''";
+  events2.createRule = "@request.auth.id != ''";
+  events2.updateRule = "@request.auth.id != '' && created_by_id = @request.auth.id";
+  events2.deleteRule = "@request.auth.id != '' && created_by_id = @request.auth.id";
+  db.save(events2);
+
+  const nominations2 = db.findCollectionByNameOrId("nominations");
+  nominations2.listRule   = "@request.auth.id != ''";
+  nominations2.viewRule   = "@request.auth.id != ''";
+  nominations2.createRule = "@request.auth.id != ''";
+  nominations2.updateRule = "@request.auth.id != '' && nominated_by_id = @request.auth.id";
+  nominations2.deleteRule = "@request.auth.id != '' && nominated_by_id = @request.auth.id";
+  db.save(nominations2);
+
+  const votes2 = db.findCollectionByNameOrId("votes");
+  votes2.listRule   = "@request.auth.id != ''";
+  votes2.viewRule   = "@request.auth.id != ''";
+  votes2.createRule = "@request.auth.id != ''";
+  votes2.updateRule = "@request.auth.id != '' && user_id = @request.auth.id";
+  votes2.deleteRule = "@request.auth.id != '' && user_id = @request.auth.id";
+  db.save(votes2);
+
   const settings = db.findCollectionByNameOrId("settings");
   settings.listRule   = "@request.auth.id != ''";
   settings.viewRule   = "@request.auth.id != ''";
@@ -37,24 +61,7 @@ migrate((db) => {
   settings.deleteRule = null;
   db.save(settings);
 
-  // ── update nominations schema: add nominated_by_id ──
-  nominations.schema.addField(new SchemaField({
-    name: "nominated_by_id",
-    type: "text",
-    required: false,
-  }));
-  db.save(nominations);
-
-  // ── update votes schema: add user_id ──
-  votes.schema.addField(new SchemaField({
-    name: "user_id",
-    type: "text",
-    required: false,
-  }));
-  db.save(votes);
-
 }, (db) => {
-  // down - reopen all rules
   for (const name of ["events","nominations","votes","settings"]) {
     const col = db.findCollectionByNameOrId(name);
     col.listRule = col.viewRule = col.createRule = col.updateRule = col.deleteRule = "";

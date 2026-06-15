@@ -284,6 +284,15 @@
       <div id="key-status" class="key-status unset">✕ No key set — movie search will not work</div>
     </div>
     <button class="btn btn-gold" id="btn-save-key" onclick="saveTmdbKey()">Save Key</button>
+
+    <hr style="border:none;border-top:1px solid var(--border);margin:28px 0;">
+
+    <div class="form-group">
+      <label class="form-label">App URL</label>
+      <input type="text" id="settings-app-url" class="form-input" placeholder="https://rk.yourdomain.com">
+      <div class="form-hint">Used in invite and results emails so recipients can click through to the app.</div>
+    </div>
+    <button class="btn btn-outline" id="btn-save-url" onclick="saveAppUrl()">Save URL</button>
   </div>
 </div>
 
@@ -503,19 +512,39 @@ async function pbDelete(path) {
 }
 
 // ── TMDB KEY ──────────────────────────────────────────────────
+let appUrl          = '';
+let appUrlRecordId  = null;
+
 async function loadTmdbKey() {
   try {
-    const data=await pbGet('/collections/settings/records?filter=(key="tmdb_key")&perPage=1');
-    const rec=(data.items||[])[0];
-    if (rec){tmdbKey=rec.value;tmdbKeyRecordId=rec.id;}
+    const data=await pbGet('/collections/settings/records?perPage=50');
+    for (const rec of (data.items||[])) {
+      if (rec.key==='tmdb_key') { tmdbKey=rec.value; tmdbKeyRecordId=rec.id; }
+      if (rec.key==='app_url')  { appUrl=rec.value;  appUrlRecordId=rec.id;  }
+    }
   } catch(e){}
 }
 function showSettingsView() {
   document.getElementById('settings-tmdb-key').value=tmdbKey||'';
+  document.getElementById('settings-app-url').value=appUrl||'';
   const s=document.getElementById('key-status');
   if (tmdbKey){s.className='key-status set';s.textContent='✓ API key is set';}
   else{s.className='key-status unset';s.textContent='✕ No key set — movie search will not work';}
 }
+async function saveAppUrl() {
+  const val=document.getElementById('settings-app-url').value.trim();
+  if (!val){showToast('Enter a URL.');return;}
+  const btn=document.getElementById('btn-save-url');
+  btn.disabled=true;btn.textContent='Saving…';
+  try {
+    if (appUrlRecordId){await pbPatch(`/collections/settings/records/${appUrlRecordId}`,{value:val});}
+    else{const rec=await pbPost('/collections/settings/records',{key:'app_url',value:val});appUrlRecordId=rec.id;}
+    appUrl=val;
+    showToast('✓ App URL saved!');
+  } catch(e){showToast('Error: '+e.message);}
+  finally{btn.disabled=false;btn.textContent='Save URL';}
+}
+
 async function saveTmdbKey() {
   const val=document.getElementById('settings-tmdb-key').value.trim();
   if (!val){showToast('Enter a TMDB API key.');return;}
@@ -634,6 +663,7 @@ async function saveEvent() {
       name,date,time,location,num_movies:numMovies,vote_end:voteEnd,
       created_by:authUser?.name||authUser?.email||'',
       created_by_id:authUser?.id||'',
+      created_by_email:authUser?.email||'',
     });
     // Save invites
     await Promise.all(pendingInviteEmails.map(email=>
