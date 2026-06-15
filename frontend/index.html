@@ -420,7 +420,7 @@ function showAuthWall() {
 async function enterApp() {
   document.getElementById('view-auth').classList.remove('active');
   document.querySelector('nav').style.display = 'flex';
-  const name = authUser.name || authUser.email;
+  const name = authUser.name || authUser.username || authUser.email;
   document.getElementById('nav-username').textContent = name;
   document.getElementById('nav-avatar').textContent   = name.charAt(0).toUpperCase();
   await loadTmdbKey();
@@ -447,6 +447,11 @@ async function doLogin() {
     const data=await r.json();
     if (!r.ok) throw new Error(data.message||'Login failed');
     authToken=data.token; authUser=data.record;
+    // Refresh the user record to ensure all fields including name are present
+    try {
+      const userRecord = await (await fetch(`${PB}/collections/users/records/${authUser.id}`, {headers:{'Authorization':authToken}})).json();
+      if (userRecord && userRecord.id) authUser = userRecord;
+    } catch(_) {}
     localStorage.setItem('rn_token',authToken);
     localStorage.setItem('rn_user',JSON.stringify(authUser));
     enterApp();
@@ -676,7 +681,7 @@ async function saveEvent() {
   try {
     const ev=await pbPost('/collections/events/records',{
       name,date,time,location,num_movies:numMovies,vote_end:voteEnd,
-      created_by:authUser?.name||authUser?.email||'',
+      created_by:authUser?.name||authUser?.username||authUser?.email||'Anonymous',
       created_by_id:authUser?.id||'',
       created_by_email:authUser?.email||'',
     });
@@ -699,7 +704,7 @@ async function openEvent(id) {
   try {
     const [ev,noms,votes,invites]=await Promise.all([
       pbGet(`/collections/events/records/${id}`),
-      pbGet(`/collections/nominations/records?filter=(event_id="${id}")&perPage=200&sort=created`),
+      pbGet(`/collections/nominations/records?filter=(event_id="${id}")&perPage=200&sort=%2Bcreated`),
       pbGet(`/collections/votes/records?filter=(event_id="${id}")&perPage=500`),
       pbGet(`/collections/event_invites/records?filter=(event_id="${id}")&perPage=100`),
     ]);
@@ -984,7 +989,7 @@ async function nominateMovie(tmdbId) {
       poster:detail.poster_path||'',overview:detail.overview||'',
       genres:(detail.genres||[]).map(g=>g.name),
       trailer_key:trailer?trailer.key:'',
-      nominated_by:authUser?.name||authUser?.email||'',
+      nominated_by:authUser?.name||authUser?.username||authUser?.email||'',
       nominated_by_id:authUser?.id||'',
     });
     currentNominations.push(nom);
