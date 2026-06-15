@@ -487,8 +487,23 @@ function authHeaders() {
   return {'Content-Type':'application/json',...(authToken?{'Authorization':authToken}:{})};
 }
 async function pbGet(path) {
-  const url=path.replace(/([?&]filter=)([^&]+)/,(_,p,v)=>p+encodeURIComponent(decodeURIComponent(v)));
-  const r=await fetch(PB+url,{headers:authHeaders()});
+  // Split path into base and query string, then encode only the filter value
+  const [base, qs] = path.split('?');
+  if (!qs) {
+    const r = await fetch(PB + path, {headers: authHeaders()});
+    if (r.status===401){doLogout();throw new Error('Session expired.');}
+    if (!r.ok) throw new Error(await r.text());
+    return r.json();
+  }
+  const params = new URLSearchParams();
+  for (const part of qs.split('&')) {
+    const eq = part.indexOf('=');
+    const key = part.substring(0, eq);
+    const val = part.substring(eq + 1);
+    params.set(key, decodeURIComponent(val));
+  }
+  const url = PB + base + '?' + params.toString();
+  const r = await fetch(url, {headers: authHeaders()});
   if (r.status===401){doLogout();throw new Error('Session expired.');}
   if (!r.ok) throw new Error(await r.text());
   return r.json();
