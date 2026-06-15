@@ -6,6 +6,7 @@ services:
     volumes:
       - /mnt/share3/docker/appdata/reelknight_pb:/pb_data
       - /mnt/share3/docker/appdata/reelknight_pb/migrations:/pb_migrations
+      - /mnt/share3/docker/appdata/reelknight_pb/pb_hooks:/pb_hooks
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:8090/api/health"]
       interval: 10s
