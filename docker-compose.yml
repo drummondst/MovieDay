@@ -3,6 +3,8 @@ services:
     image: ghcr.io/muchobien/pocketbase:latest
     container_name: reelnight_pb
     restart: unless-stopped
+    environment:
+      - TZ: America/Chicago
     volumes:
       - /mnt/share3/docker/appdata/reelknight_pb:/pb_data
       - /mnt/share3/docker/appdata/reelknight_pb/migrations:/pb_migrations
