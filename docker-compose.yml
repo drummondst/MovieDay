@@ -4,7 +4,7 @@ services:
     container_name: reelnight_pb
     restart: unless-stopped
     environment:
-      - TZ=America/Chicago
+      - TZ=America/Indiana/Indianapolis
     volumes:
       - /mnt/share3/docker/appdata/reelknight_pb:/pb_data
       - /mnt/share3/docker/appdata/reelknight_pb/migrations:/pb_migrations
