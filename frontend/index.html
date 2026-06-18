@@ -100,6 +100,16 @@
   .form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:24px;}
   .form-hint{font-size:12px;color:var(--muted);margin-top:5px;}
 
+  /* MODE TOGGLE */
+  .mode-toggle{display:flex;gap:8px;}
+  .mode-btn{flex:1;background:var(--surface);border:1px solid var(--border);color:var(--muted);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;padding:12px;border-radius:8px;cursor:pointer;transition:all .15s;}
+  .mode-btn:hover{border-color:var(--gold);color:var(--text);}
+  .mode-btn.active{background:var(--gold-dim);border-color:var(--gold);color:var(--gold);}
+  .host-pick-tag{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(232,197,71,.3);border-radius:8px;padding:8px 10px;font-size:13px;display:flex;align-items:center;gap:10px;}
+  .host-pick-tag img{width:30px;height:45px;border-radius:4px;object-fit:cover;}
+  .host-pick-tag button{background:none;border:none;color:var(--gold);cursor:pointer;font-size:15px;line-height:1;margin-left:auto;}
+  .host-pick-tag button:hover{color:var(--danger);}
+
   /* INVITE TAGS */
   .invite-input-row{display:flex;gap:8px;}
   .invite-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;min-height:32px;}
@@ -375,17 +385,32 @@
       <label class="form-label">Location</label>
       <input type="text" id="ev-location" class="form-input" placeholder="e.g. The Living Room">
     </div>
-    <div class="form-row">
+    <div class="form-group">
+      <label class="form-label">How will the movie be chosen?</label>
+      <div class="mode-toggle">
+        <button type="button" class="mode-btn active" id="mode-btn-vote" onclick="setVotingMode('vote')">🗳️ Vote on it</button>
+        <button type="button" class="mode-btn" id="mode-btn-pick" onclick="setVotingMode('host_pick')">👑 I'll pick it</button>
+      </div>
+    </div>
+    <div class="form-row" id="ev-movies-row">
       <div class="form-group">
         <label class="form-label">Films to Watch</label>
-        <input type="number" id="ev-movies" class="form-input" min="1" max="10" value="1">
-        <div class="form-hint">How many top-voted films to select</div>
+        <input type="number" id="ev-movies" class="form-input" min="1" max="10" value="1" onchange="onMovieCountChange()">
+        <div class="form-hint" id="ev-movies-hint">How many top-voted films to select</div>
       </div>
-      <div class="form-group">
+      <div class="form-group" id="ev-voteend-group">
         <label class="form-label">Voting Closes</label>
         <input type="datetime-local" id="ev-voteend" class="form-input">
         <div class="form-hint">Winners announced after this</div>
       </div>
+    </div>
+    <div class="form-group" id="ev-host-pick-group" style="display:none">
+      <label class="form-label">Pick the Movie(s)</label>
+      <div class="invite-input-row">
+        <input type="text" id="host-pick-search" class="form-input" placeholder="Search for a movie…" oninput="debounceHostPickSearch(this.value)">
+      </div>
+      <div id="host-pick-results" class="search-results"></div>
+      <div id="host-pick-selected" class="invite-tags" style="margin-top:10px"></div>
     </div>
     <div class="form-group">
       <label class="form-label">Invite People</label>
@@ -459,6 +484,8 @@ let currentNominations  = [];
 let currentVotes        = [];
 let currentInvites      = [];   // invites for current event
 let pendingInviteEmails = [];   // emails staged in create-event modal
+let votingMode          = 'vote'; // 'vote' or 'host_pick'
+let hostPickSelections  = [];   // movies picked by host in create-event modal
 let countdownInterval   = null;
 
 // ── INIT ──────────────────────────────────────────────────────
@@ -664,20 +691,23 @@ function renderEventsGrid(events) {
     return;
   }
   grid.innerHTML=events.map(ev=>{
-    const open=isVotingOpen(ev),ended=hasVotingEnded(ev);
+    const isHostPick=ev.voting_mode==='host_pick';
+    const open=isHostPick?false:isVotingOpen(ev);
+    const ended=isHostPick?true:hasVotingEnded(ev);
     const isOwner=ev.created_by_id===authUser?.id;
     return `<div class="event-card" onclick="openEvent('${ev.id}')">
       <div class="event-card-title">${escHtml(ev.name)}</div>
       <div class="event-meta">
         <div class="event-meta-item">📅 ${formatDate(ev.date)} at ${formatTime(ev.time)}</div>
         <div class="event-meta-item">📍 ${escHtml(ev.location)}</div>
-        <div class="event-meta-item">🎬 ${ev.num_movies} film${ev.num_movies>1?'s':''} to watch</div>
-        ${ev.vote_end?`<div class="event-meta-item">🗳 Voting closes ${formatDateTime(ev.vote_end)}</div>`:''}
+        <div class="event-meta-item">🎬 ${isHostPick?'Host picked the film'+(ev.num_movies>1?'s':''):ev.num_movies+' film'+(ev.num_movies>1?'s':'')+' to watch'}</div>
+        ${(!isHostPick&&ev.vote_end)?`<div class="event-meta-item">🗳 Voting closes ${formatDateTime(ev.vote_end)}</div>`:''}
       </div>
       <div class="event-badges">
-        ${open?'<span class="badge badge-green">Voting Open</span>':''}
-        ${ended?'<span class="badge badge-red">Voting Closed</span>':''}
-        ${!ev.vote_end?'<span class="badge badge-blue">Open-ended</span>':''}
+        ${isHostPick?'<span class="badge badge-gold">👑 Host Pick</span>':''}
+        ${!isHostPick&&open?'<span class="badge badge-green">Voting Open</span>':''}
+        ${!isHostPick&&ended?'<span class="badge badge-red">Voting Closed</span>':''}
+        ${!isHostPick&&!ev.vote_end?'<span class="badge badge-blue">Open-ended</span>':''}
         ${isOwner?'<span class="badge badge-gold">Host</span>':'<span class="badge badge-blue">Invited</span>'}
       </div>
     </div>`;
@@ -695,8 +725,91 @@ function openCreateEvent() {
   document.getElementById('ev-voteend').value='';
   document.getElementById('ev-invite-input').value='';
   pendingInviteEmails=[];
+  hostPickSelections=[];
+  votingMode='vote';
+  document.getElementById('host-pick-search').value='';
+  document.getElementById('host-pick-results').innerHTML='';
+  setVotingMode('vote');
   renderInviteTags();
+  renderHostPickSelections();
   openModal('modal-create-event');
+}
+
+function setVotingMode(mode) {
+  votingMode = mode;
+  document.getElementById('mode-btn-vote').classList.toggle('active', mode==='vote');
+  document.getElementById('mode-btn-pick').classList.toggle('active', mode==='host_pick');
+  document.getElementById('ev-voteend-group').style.display = mode==='vote' ? '' : 'none';
+  document.getElementById('ev-host-pick-group').style.display = mode==='host_pick' ? '' : 'none';
+  document.getElementById('ev-movies-hint').textContent = mode==='vote'
+    ? 'How many top-voted films to select'
+    : 'How many movies you want to pick below';
+  renderHostPickSelections();
+}
+
+function onMovieCountChange() {
+  // Trim selections if count was reduced
+  const max = parseInt(document.getElementById('ev-movies').value) || 1;
+  if (hostPickSelections.length > max) hostPickSelections = hostPickSelections.slice(0, max);
+  renderHostPickSelections();
+}
+
+let hostPickSearchTimer = null;
+function debounceHostPickSearch(val) {
+  clearTimeout(hostPickSearchTimer);
+  const sr = document.getElementById('host-pick-results');
+  if (!val.trim()) { sr.innerHTML=''; return; }
+  if (!tmdbKey) { sr.innerHTML = `<div style="color:var(--danger);padding:12px;font-size:13px">No TMDB key set. Go to ⚙️ Settings first.</div>`; return; }
+  sr.innerHTML = '<div class="loading"><span class="spinner"></span>Searching…</div>';
+  hostPickSearchTimer = setTimeout(()=>hostPickSearch(val), 400);
+}
+
+async function hostPickSearch(query) {
+  try {
+    const r = await fetch(`${TMDB_BASE}/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(query)}`);
+    const data = await r.json();
+    const results = (data.results||[]).slice(0,8);
+    const sr = document.getElementById('host-pick-results');
+    if (!results.length) { sr.innerHTML = '<div class="loading">No results.</div>'; return; }
+    sr.innerHTML = results.map(m => `
+      <div class="search-result-item" onclick='selectHostPickMovie(${m.id})'>
+        ${m.poster_path ? `<img class="search-result-poster" src="${TMDB_SM}${m.poster_path}" alt="">` : `<div class="search-result-poster" style="display:flex;align-items:center;justify-content:center">🎬</div>`}
+        <div class="search-result-info"><div class="title">${escHtml(m.title)}</div><div class="year">${m.release_date?m.release_date.split('-')[0]:'Unknown'}</div></div>
+      </div>`).join('');
+    // stash raw results for selection lookup
+    window.__hostPickCache = window.__hostPickCache || {};
+    results.forEach(m => window.__hostPickCache[m.id] = m);
+  } catch(e) {
+    document.getElementById('host-pick-results').innerHTML = '<div class="loading" style="color:var(--danger)">Search failed.</div>';
+  }
+}
+
+function selectHostPickMovie(tmdbId) {
+  const max = parseInt(document.getElementById('ev-movies').value) || 1;
+  if (hostPickSelections.length >= max) { showToast(`You can only pick ${max} movie${max>1?'s':''}. Increase "Films to Watch" to add more.`); return; }
+  if (hostPickSelections.find(m => m.id === tmdbId)) { showToast('Already picked!'); return; }
+  const movie = window.__hostPickCache?.[tmdbId];
+  if (!movie) return;
+  hostPickSelections.push(movie);
+  document.getElementById('host-pick-search').value = '';
+  document.getElementById('host-pick-results').innerHTML = '';
+  renderHostPickSelections();
+}
+
+function removeHostPickMovie(tmdbId) {
+  hostPickSelections = hostPickSelections.filter(m => m.id !== tmdbId);
+  renderHostPickSelections();
+}
+
+function renderHostPickSelections() {
+  const el = document.getElementById('host-pick-selected');
+  if (!el) return;
+  el.innerHTML = hostPickSelections.map(m => `
+    <div class="host-pick-tag">
+      ${m.poster_path ? `<img src="${TMDB_SM}${m.poster_path}" alt="">` : ''}
+      <span>${escHtml(m.title)} ${m.release_date?'('+m.release_date.split('-')[0]+')':''}</span>
+      <button onclick="removeHostPickMovie(${m.id})" title="Remove">✕</button>
+    </div>`).join('');
 }
 
 function addInviteTag() {
@@ -730,13 +843,15 @@ async function saveEvent() {
   const time=document.getElementById('ev-time').value;
   const location=document.getElementById('ev-location').value.trim();
   const numMovies=parseInt(document.getElementById('ev-movies').value)||1;
-  const voteEnd=document.getElementById('ev-voteend').value||null;
+  const voteEnd=votingMode==='vote' ? (document.getElementById('ev-voteend').value||null) : null;
   if (!name||!date||!time||!location){showToast('Fill in all required fields.');return;}
+  if (votingMode==='host_pick' && hostPickSelections.length===0){showToast('Pick at least one movie.');return;}
   const btn=document.getElementById('btn-create-event');
   btn.disabled=true;btn.textContent='Creating…';
   try {
     const ev=await pbPost('/collections/events/records',{
       name,date,time,location,num_movies:numMovies,vote_end:voteEnd,
+      voting_mode:votingMode,
       created_by:authUser?.name||authUser?.username||authUser?.email||'Anonymous',
       created_by_id:authUser?.id||'',
       created_by_email:authUser?.email||'',
@@ -745,6 +860,30 @@ async function saveEvent() {
     await Promise.all(pendingInviteEmails.map(email=>
       pbPost('/collections/event_invites/records',{event_id:ev.id,user_email:email,invited_by:authUser?.id||''})
     ));
+    // If host picked movies directly, fetch full details and save as selected nominations
+    if (votingMode==='host_pick') {
+      await Promise.all(hostPickSelections.map(async movie => {
+        try {
+          const [detailRes, videoRes] = await Promise.all([
+            fetch(`${TMDB_BASE}/movie/${movie.id}?api_key=${tmdbKey}`),
+            fetch(`${TMDB_BASE}/movie/${movie.id}/videos?api_key=${tmdbKey}`),
+          ]);
+          const detail = await detailRes.json();
+          const videos = await videoRes.json();
+          const trailer = (videos.results||[]).find(v=>v.site==='YouTube'&&v.type==='Trailer') || (videos.results||[]).find(v=>v.site==='YouTube');
+          await pbPost('/collections/nominations/records', {
+            event_id: ev.id, tmdb_id: movie.id, title: detail.title,
+            year: detail.release_date?detail.release_date.split('-')[0]:'',
+            poster: detail.poster_path||'', overview: detail.overview||'',
+            genres: (detail.genres||[]).map(g=>g.name),
+            trailer_key: trailer?trailer.key:'',
+            nominated_by: authUser?.name||authUser?.email||'',
+            nominated_by_id: authUser?.id||'',
+            is_selected: true,
+          });
+        } catch(err) { console.error('Failed to save host-picked movie', movie.title, err); }
+      }));
+    }
     closeModal('modal-create-event');
     showToast('🎬 Event created!');
     openEvent(ev.id);
@@ -896,12 +1035,25 @@ function renderFunStats(noms, votes) {
 
 function renderEventDetail(ev) {
   clearInterval(countdownInterval);
-  const open=isVotingOpen(ev),ended=hasVotingEnded(ev);
-  const isOwner=ev.created_by_id===authUser?.id;
-  const noms=currentNominations;
+  const isHostPick = ev.voting_mode === 'host_pick';
+  const open  = isHostPick ? false : isVotingOpen(ev);
+  const ended = isHostPick ? true  : hasVotingEnded(ev);
+  const isOwner = ev.created_by_id===authUser?.id;
+  const noms = currentNominations;
 
   let winnersHtml='';
-  if (ended&&noms.length) {
+  if (isHostPick) {
+    // Host-picked movies are always the "winners" — shown via is_selected flag
+    const selected = noms.filter(n => n.is_selected);
+    if (selected.length) {
+      winnersHtml='<div style="margin-bottom:28px">'+
+        selected.map((n,i)=>`
+          <div class="winner-card">
+            <div style="font-size:36px">👑</div>
+            <div><div class="winner-label">Host Pick${selected.length>1?' #'+(i+1):''}</div><div class="winner-title">${escHtml(n.title)} ${n.year?'('+n.year+')':''}</div></div>
+          </div>`).join('')+'</div>';
+    }
+  } else if (ended&&noms.length) {
     const sorted=[...noms].sort((a,b)=>getAvg(b.id)-getAvg(a.id));
     winnersHtml='<div style="margin-bottom:28px">'+
       sorted.slice(0,ev.num_movies).map((n,i)=>`
@@ -912,11 +1064,13 @@ function renderEventDetail(ev) {
         </div>`).join('')+'</div>';
   }
 
-  const statsHtml = ended ? renderFunStats(noms, currentVotes) : '';
+  const statsHtml = (ended && !isHostPick) ? renderFunStats(noms, currentVotes) : '';
 
-  const nomCards=noms.length
-    ?`<div class="nominations-grid">${noms.map(n=>renderNomCard(n,open)).join('')}</div>`
-    :`<div class="empty-state"><div class="empty-icon">🎞</div><h3>No nominations yet</h3><p>Be the first to nominate a movie.</p>${open?`<button class="btn btn-gold" style="margin-top:16px" onclick="openNominateModal()">+ Nominate</button>`:''}</div>`;
+  const nomCards = isHostPick
+    ? '' // host-pick events don't show a separate nominations grid — the pick(s) are shown as winners above
+    : (noms.length
+      ?`<div class="nominations-grid">${noms.map(n=>renderNomCard(n,open)).join('')}</div>`
+      :`<div class="empty-state"><div class="empty-icon">🎞</div><h3>No nominations yet</h3><p>Be the first to nominate a movie.</p>${open?`<button class="btn btn-gold" style="margin-top:16px" onclick="openNominateModal()">+ Nominate</button>`:''}</div>`);
 
   const inviteCount=currentInvites.length;
 
@@ -926,26 +1080,27 @@ function renderEventDetail(ev) {
       <div class="event-header-meta">
         <span>📅 ${formatDate(ev.date)} at ${formatTime(ev.time)}</span>
         <span>📍 ${escHtml(ev.location)}</span>
-        <span>🎬 Top ${ev.num_movies} film${ev.num_movies>1?'s':''} selected</span>
+        <span>🎬 ${isHostPick ? 'Host picked the film'+(ev.num_movies>1?'s':'') : 'Top '+ev.num_movies+' film'+(ev.num_movies>1?'s':'')+' selected'}</span>
         <span>👥 ${inviteCount} invited</span>
       </div>
       <div class="event-header-actions">
         ${open?`<button class="btn btn-gold" onclick="openNominateModal()">+ Nominate a Movie</button>`:''}
         ${isOwner?`<button class="btn btn-outline btn-sm" onclick="openInvitesModal('${ev.id}')">👥 Manage Invites</button>`:''}
-        ${ev.vote_end?renderCountdown(ev.vote_end):''}
+        ${(!isHostPick && ev.vote_end)?renderCountdown(ev.vote_end):''}
         <button class="btn btn-outline btn-sm" onclick="openEvent('${ev.id}')">↻ Refresh</button>
         ${isOwner?`<button class="btn btn-ghost btn-sm" onclick="deleteEvent('${ev.id}')">🗑 Delete</button>`:''}
       </div>
     </div>
     ${winnersHtml}
     ${statsHtml}
+    ${!isHostPick ? `
     <div class="section-header">
       <div class="section-title">NOMINATIONS <span style="font-size:18px;color:var(--muted)">(${noms.length})</span></div>
       ${open&&noms.length?`<span style="color:var(--muted);font-size:13px">Tap a film to vote</span>`:''}
     </div>
-    ${nomCards}`;
+    ${nomCards}` : ''}`;
 
-  if (ev.vote_end&&!ended) startCountdown(ev.vote_end,ev);
+  if (!isHostPick && ev.vote_end&&!ended) startCountdown(ev.vote_end,ev);
 }
 
 // ── INVITES MODAL ─────────────────────────────────────────────
