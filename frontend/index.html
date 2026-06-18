@@ -1218,10 +1218,7 @@ async function openMovieDetail(nomId) {
             <div class="vote-stat"><div class="vote-stat-val">${Math.max(...allVotes.map(v=>v.score))}</div><div class="vote-stat-label">High</div></div>
             <div class="vote-stat"><div class="vote-stat-val">${Math.min(...allVotes.map(v=>v.score))}</div><div class="vote-stat-label">Low</div></div>
           </div>`:''}
-        </div>` : `<div class="vote-section">
-          <div class="vote-section-title">Selection</div>
-          <p style="color:var(--gold);font-size:14px;display:flex;align-items:center;gap:8px;margin:0">👑 Hand-picked by the host — no voting for this event.</p>
-        </div>`}
+        </div>` : ''}
       </div>
     </div>
     ${nom.trailer_key?`<hr><div class="trailer-wrap"><div class="trailer-label">🎞 Trailer</div><div class="trailer-container"><iframe src="https://www.youtube.com/embed/${nom.trailer_key}?rel=0" allowfullscreen allow="autoplay; encrypted-media"></iframe></div></div>`:''}
