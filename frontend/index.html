@@ -139,6 +139,15 @@
   .winner-score-val{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--gold);line-height:1;}
   .winner-score-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
 
+  /* FUN STATS */
+  .stats-section{margin-bottom:28px;}
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
+  .stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px;}
+  .stat-card-icon{font-size:24px;margin-bottom:8px;display:block;}
+  .stat-card-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
+  .stat-card-value{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);line-height:1.15;}
+  .stat-card-sub{font-size:12px;color:var(--muted);margin-top:3px;}
+
   .movie-detail-grid{display:grid;grid-template-columns:180px 1fr;gap:24px;}
   @media(max-width:580px){.movie-detail-grid{grid-template-columns:1fr;}}
   .movie-detail-poster{width:100%;border-radius:10px;display:block;}
@@ -764,6 +773,127 @@ async function openEvent(id) {
   }
 }
 
+// ── FUN STATS ─────────────────────────────────────────────────
+function renderFunStats(noms, votes) {
+  if (!votes.length || !noms.length) return '';
+
+  const nomById = {};
+  noms.forEach(n => nomById[n.id] = n);
+
+  // Most Controversial — biggest spread on one movie (min 2 votes)
+  let controversial = null, maxSpread = -1;
+  for (const n of noms) {
+    const vs = votes.filter(v => v.nomination_id === n.id).map(v => v.score);
+    if (vs.length < 2) continue;
+    const spread = Math.max(...vs) - Math.min(...vs);
+    if (spread > maxSpread) { maxSpread = spread; controversial = n; }
+  }
+
+  // Total votes cast
+  const totalVotes = votes.length;
+
+  // Biggest Fan — user with highest average score given (min 1 vote)
+  const byUser = {};
+  votes.forEach(v => { (byUser[v.username] = byUser[v.username] || []).push(v.score); });
+  let biggestFan = null, fanAvg = -1;
+  let toughestCritic = null, criticAvg = 11;
+  for (const [user, scores] of Object.entries(byUser)) {
+    const avg = scores.reduce((a,b)=>a+b,0)/scores.length;
+    if (avg > fanAvg) { fanAvg = avg; biggestFan = user; }
+    if (avg < criticAvg) { criticAvg = avg; toughestCritic = user; }
+  }
+
+  // Closest Race — gap between #1 and #2 average
+  const avgByNom = noms.map(n => {
+    const vs = votes.filter(v => v.nomination_id === n.id).map(v => v.score);
+    return { nom: n, avg: vs.length ? vs.reduce((a,b)=>a+b,0)/vs.length : 0, count: vs.length };
+  }).filter(x => x.count > 0).sort((a,b) => b.avg - a.avg);
+  let closestRaceText = null;
+  if (avgByNom.length >= 2) {
+    const gap = (avgByNom[0].avg - avgByNom[1].avg).toFixed(1);
+    closestRaceText = `${gap} pt${gap==='1.0'?'':'s'} apart`;
+  }
+
+  // Most votes on a single movie (most engagement)
+  let mostVoted = null, mostVotedCount = -1;
+  for (const n of noms) {
+    const c = votes.filter(v => v.nomination_id === n.id).length;
+    if (c > mostVotedCount) { mostVotedCount = c; mostVoted = n; }
+  }
+
+  // Perfect score — any 10/10 votes cast?
+  const perfectScores = votes.filter(v => v.score === 10).length;
+
+  const cards = [];
+
+  cards.push(`<div class="stat-card">
+    <span class="stat-card-icon">🗳️</span>
+    <div class="stat-card-label">Total Votes Cast</div>
+    <div class="stat-card-value">${totalVotes}</div>
+  </div>`);
+
+  if (controversial && maxSpread > 0) {
+    cards.push(`<div class="stat-card">
+      <span class="stat-card-icon">🔥</span>
+      <div class="stat-card-label">Most Controversial</div>
+      <div class="stat-card-value">${escHtml(controversial.title)}</div>
+      <div class="stat-card-sub">${maxSpread} point spread</div>
+    </div>`);
+  }
+
+  if (biggestFan) {
+    cards.push(`<div class="stat-card">
+      <span class="stat-card-icon">😍</span>
+      <div class="stat-card-label">Biggest Fan</div>
+      <div class="stat-card-value">${escHtml(biggestFan)}</div>
+      <div class="stat-card-sub">avg vote: ${fanAvg.toFixed(1)}</div>
+    </div>`);
+  }
+
+  if (toughestCritic && toughestCritic !== biggestFan) {
+    cards.push(`<div class="stat-card">
+      <span class="stat-card-icon">🧐</span>
+      <div class="stat-card-label">Toughest Critic</div>
+      <div class="stat-card-value">${escHtml(toughestCritic)}</div>
+      <div class="stat-card-sub">avg vote: ${criticAvg.toFixed(1)}</div>
+    </div>`);
+  }
+
+  if (closestRaceText) {
+    cards.push(`<div class="stat-card">
+      <span class="stat-card-icon">🏁</span>
+      <div class="stat-card-label">Race for #1</div>
+      <div class="stat-card-value">${closestRaceText}</div>
+      <div class="stat-card-sub">${escHtml(avgByNom[0].nom.title)} vs ${escHtml(avgByNom[1].nom.title)}</div>
+    </div>`);
+  }
+
+  if (mostVoted && mostVotedCount > 0) {
+    cards.push(`<div class="stat-card">
+      <span class="stat-card-icon">📣</span>
+      <div class="stat-card-label">Most Talked About</div>
+      <div class="stat-card-value">${escHtml(mostVoted.title)}</div>
+      <div class="stat-card-sub">${mostVotedCount} vote${mostVotedCount!==1?'s':''}</div>
+    </div>`);
+  }
+
+  if (perfectScores > 0) {
+    cards.push(`<div class="stat-card">
+      <span class="stat-card-icon">💯</span>
+      <div class="stat-card-label">Perfect Scores</div>
+      <div class="stat-card-value">${perfectScores}</div>
+      <div class="stat-card-sub">10/10 vote${perfectScores!==1?'s':''} given</div>
+    </div>`);
+  }
+
+  if (!cards.length) return '';
+
+  return `<div class="stats-section">
+    <div class="section-header"><div class="section-title">VOTE <span>STATS</span></div></div>
+    <div class="stats-grid">${cards.join('')}</div>
+  </div>`;
+}
+
 function renderEventDetail(ev) {
   clearInterval(countdownInterval);
   const open=isVotingOpen(ev),ended=hasVotingEnded(ev);
@@ -781,6 +911,8 @@ function renderEventDetail(ev) {
           <div class="winner-score"><div class="winner-score-val">${getAvg(n.id).toFixed(1)}</div><div class="winner-score-label">avg score</div></div>
         </div>`).join('')+'</div>';
   }
+
+  const statsHtml = ended ? renderFunStats(noms, currentVotes) : '';
 
   const nomCards=noms.length
     ?`<div class="nominations-grid">${noms.map(n=>renderNomCard(n,open)).join('')}</div>`
@@ -806,6 +938,7 @@ function renderEventDetail(ev) {
       </div>
     </div>
     ${winnersHtml}
+    ${statsHtml}
     <div class="section-header">
       <div class="section-title">NOMINATIONS <span style="font-size:18px;color:var(--muted)">(${noms.length})</span></div>
       ${open&&noms.length?`<span style="color:var(--muted);font-size:13px">Tap a film to vote</span>`:''}
