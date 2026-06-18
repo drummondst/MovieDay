@@ -142,7 +142,9 @@
   .vote-ring{position:absolute;top:8px;right:8px;background:rgba(13,15,26,.88);border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;border:2px solid var(--gold);color:var(--gold);}
   .vote-ring.empty{border-color:var(--border);color:var(--muted);}
 
-  .winner-card{background:linear-gradient(135deg,rgba(232,197,71,.08),rgba(107,127,212,.06));border:2px solid var(--gold);border-radius:12px;padding:22px 26px;margin-bottom:20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .winner-card{background:linear-gradient(135deg,rgba(232,197,71,.08),rgba(107,127,212,.06));border:2px solid var(--gold);border-radius:12px;padding:22px 26px;margin-bottom:20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;transition:all .2s;}
+  .winner-card:hover{background:linear-gradient(135deg,rgba(232,197,71,.16),rgba(107,127,212,.1));transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.35);}
+  .winner-tap-hint{margin-left:auto;font-size:12px;color:var(--muted);white-space:nowrap;}
   .winner-label{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:var(--gold);}
   .winner-title{font-size:20px;font-weight:700;margin-top:3px;}
   .winner-score{margin-left:auto;text-align:center;}
@@ -1048,16 +1050,17 @@ function renderEventDetail(ev) {
     if (selected.length) {
       winnersHtml='<div style="margin-bottom:28px">'+
         selected.map((n,i)=>`
-          <div class="winner-card">
+          <div class="winner-card" onclick="openMovieDetail('${n.id}')" style="cursor:pointer">
             <div style="font-size:36px">👑</div>
             <div><div class="winner-label">Host Pick${selected.length>1?' #'+(i+1):''}</div><div class="winner-title">${escHtml(n.title)} ${n.year?'('+n.year+')':''}</div></div>
+            <div class="winner-tap-hint">Tap for details →</div>
           </div>`).join('')+'</div>';
     }
   } else if (ended&&noms.length) {
     const sorted=[...noms].sort((a,b)=>getAvg(b.id)-getAvg(a.id));
     winnersHtml='<div style="margin-bottom:28px">'+
       sorted.slice(0,ev.num_movies).map((n,i)=>`
-        <div class="winner-card">
+        <div class="winner-card" onclick="openMovieDetail('${n.id}')" style="cursor:pointer">
           <div style="font-size:36px">${['🏆','🥈','🥉'][i]||'🎬'}</div>
           <div><div class="winner-label">Winner #${i+1}</div><div class="winner-title">${escHtml(n.title)} ${n.year?'('+n.year+')':''}</div></div>
           <div class="winner-score"><div class="winner-score-val">${getAvg(n.id).toFixed(1)}</div><div class="winner-score-label">avg score</div></div>
@@ -1181,7 +1184,8 @@ async function openMovieDetail(nomId) {
   if (!nom) return;
   try{const vd=await pbGet(`/collections/votes/records?filter=(event_id="${currentEventId}")&perPage=500`);currentVotes=vd.items||[];}catch(e){}
   const ev=await pbGet(`/collections/events/records/${currentEventId}`).catch(()=>null);
-  const votingOpen=ev?isVotingOpen(ev):false;
+  const votingOpen=ev?(ev.voting_mode!=='host_pick' && isVotingOpen(ev)):false;
+  const isHostPickEvent = ev?.voting_mode==='host_pick';
   const myVote=getMyVote(nomId),voteCount=getVoteCount(nomId),avg=getAvg(nomId),allVotes=getVotesFor(nomId);
   const genres=Array.isArray(nom.genres)?nom.genres:JSON.parse(nom.genres||'[]');
   const sliderVal=myVote!==null?myVote:5;
@@ -1197,7 +1201,7 @@ async function openMovieDetail(nomId) {
         <div style="color:var(--muted);font-size:13px">${nom.year||''} ${nom.nominated_by?'· Nominated by '+escHtml(nom.nominated_by):''}</div>
         <div class="movie-genres">${genres.map(g=>`<span class="genre-pill">${escHtml(g)}</span>`).join('')}</div>
         <p class="movie-overview">${escHtml(nom.overview||'No description available.')}</p>
-        <div class="vote-section">
+        ${!isHostPickEvent ? `<div class="vote-section">
           <div class="vote-section-title">Your Vote</div>
           ${!votingOpen?`<p style="color:var(--muted);font-size:13px">Voting is closed for this event.</p>`
             :`<div class="vote-slider-row">
@@ -1214,13 +1218,16 @@ async function openMovieDetail(nomId) {
             <div class="vote-stat"><div class="vote-stat-val">${Math.max(...allVotes.map(v=>v.score))}</div><div class="vote-stat-label">High</div></div>
             <div class="vote-stat"><div class="vote-stat-val">${Math.min(...allVotes.map(v=>v.score))}</div><div class="vote-stat-label">Low</div></div>
           </div>`:''}
-        </div>
+        </div>` : `<div class="vote-section">
+          <div class="vote-section-title">Selection</div>
+          <p style="color:var(--gold);font-size:14px;display:flex;align-items:center;gap:8px;margin:0">👑 Hand-picked by the host — no voting for this event.</p>
+        </div>`}
       </div>
     </div>
     ${nom.trailer_key?`<hr><div class="trailer-wrap"><div class="trailer-label">🎞 Trailer</div><div class="trailer-container"><iframe src="https://www.youtube.com/embed/${nom.trailer_key}?rel=0" allowfullscreen allow="autoplay; encrypted-media"></iframe></div></div>`:''}
     <div style="margin-top:16px;display:flex;justify-content:space-between;align-items:center">
       <span style="font-size:12px;color:var(--muted)">Movie data from The Movie Database</span>
-      ${isMyNom&&votingOpen?`<button class="btn btn-danger btn-sm" onclick="removeNomination('${nomId}')">Remove Nomination</button>`:''}
+      ${isMyNom&&votingOpen&&!isHostPickEvent?`<button class="btn btn-danger btn-sm" onclick="removeNomination('${nomId}')">Remove Nomination</button>`:''}
     </div>`;
   openModal('modal-movie-detail');
 }
